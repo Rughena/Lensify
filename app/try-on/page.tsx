@@ -4,55 +4,42 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { Footer } from '@/components/footer';
 
-interface Product {
-  _id: string;
-  name: string;
-  price: number;
-  discount: number;
-  imageUrl: string;
-  brand: string;
-  shape: string;
-  category: string;
-}
-
-// VTO overlay mapping — transparent PNG images for AR
-// Jab bhi nayi PNG ready ho, yahan add karo
-const overlayImages: Record<string, string> = {
-  'Lensify Classic Black Rectangle': '/products/Lensify_Classic_Black_Rectangle.png',
-  'Lensify Sage Green Round': '/products/Lensify_Sage_Green_Round.png',
-  'Lensify Minimalist Square': '/products/Lensify_Minimalist_Square.png',
-};
+// Sirf yeh 3 frames VTO mein show hongi
+const frameModels = [
+  {
+    id: 'black-rectangle',
+    name: 'Lensify Classic Black Rectangle',
+    overlay: '/products/Lensify_Classic_Black_Rectangle.png',
+    thumb: '/products/Lensify_Classic_Black_Rectangle.png',
+    price: 5000,
+    discount: 12,
+  },
+  {
+    id: 'sage-green-round',
+    name: 'Lensify Sage Green Round',
+    overlay: '/products/Lensify_Sage_Green_Round.png',
+    thumb: '/products/Lensify_Sage_Green_Round.png',
+    price: 6500,
+    discount: 16,
+  },
+  {
+    id: 'minimalist-square',
+    name: 'Lensify Minimalist Square',
+    overlay: '/products/Lensify_Minimalist_Square.png',
+    thumb: '/products/Lensify_Minimalist_Square.png',
+    price: 7500,
+    discount: 10,
+  },
+];
 
 export default function TryOnPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const [cameraActive, setCameraActive] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [selectedFrame, setSelectedFrame] = useState(frameModels[0]);
   const [faceDetected, setFaceDetected] = useState(false);
   const [frameScale, setFrameScale] = useState(1.0);
-
-  // Fetch real products from database
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const response = await fetch('/api/products?limit=50');
-        const data = await response.json();
-        const glasses = Array.isArray(data)
-          ? data.filter((p: Product) => p.category !== 'contacts')
-          : [];
-        setProducts(glasses);
-        if (glasses.length > 0) setSelectedProduct(glasses[0]);
-      } catch (error) {
-        console.error('Failed to fetch products:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProducts();
-  }, []);
 
   useEffect(() => {
     if (!cameraActive) return;
@@ -93,12 +80,9 @@ export default function TryOnPage() {
     };
   }, [cameraActive]);
 
-  // Restart MediaPipe when product changes
   useEffect(() => {
-    if (cameraActive && selectedProduct) {
-      setupFaceMesh();
-    }
-  }, [selectedProduct, frameScale]);
+    if (cameraActive) setupFaceMesh();
+  }, [selectedFrame, frameScale]);
 
   const loadMediaPipe = async () => {
     if ((window as any).FaceMesh && (window as any).Camera) {
@@ -121,9 +105,7 @@ export default function TryOnPage() {
         s.onerror = () => reject();
         document.head.appendChild(s);
       }),
-    ]).catch(() => {
-      console.warn('MediaPipe load failed');
-    });
+    ]).catch(() => console.warn('MediaPipe load failed'));
 
     setupFaceMesh();
   };
@@ -131,7 +113,6 @@ export default function TryOnPage() {
   const setupFaceMesh = () => {
     if (!(window as any).FaceMesh || !(window as any).Camera || !videoRef.current) return;
 
-    // Stop previous instance
     try {
       if ((window as any).__mp_camera) {
         (window as any).__mp_camera.stop();
@@ -169,7 +150,6 @@ export default function TryOnPage() {
 
     camera.start();
     (window as any).__mp_camera = camera;
-    (window as any).__mp_faceMesh = faceMesh;
   };
 
   const drawOverlay = (results: any) => {
@@ -183,21 +163,21 @@ export default function TryOnPage() {
     canvas.width = video.videoWidth || 640;
     canvas.height = video.videoHeight || 480;
 
-    // Draw mirrored video
+    // Mirrored video draw
     ctx.save();
     ctx.scale(-1, 1);
     ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
     ctx.restore();
 
     const landmarks = results.multiFaceLandmarks?.[0];
-    if (!landmarks || !selectedProduct) {
+    if (!landmarks) {
       setFaceDetected(false);
       return;
     }
 
     setFaceDetected(true);
 
-    // Eye positions (mirrored)
+    // Eye landmarks (mirrored)
     const left = landmarks[33];
     const right = landmarks[263];
 
@@ -213,11 +193,8 @@ export default function TryOnPage() {
     const overlayWidth = eyeDist * 2.6 * frameScale;
     const overlayHeight = overlayWidth * 0.45;
 
-    // Use transparent PNG if available, else use product image
-    const overlayPath = overlayImages[selectedProduct.name] || selectedProduct.imageUrl;
-
     const img = new Image();
-    img.src = overlayPath;
+    img.src = selectedFrame.overlay;
     img.onload = () => {
       ctx.save();
       ctx.translate(centerX, centerY - overlayHeight * 0.12);
@@ -236,22 +213,18 @@ export default function TryOnPage() {
     if (!canvasRef.current) return;
     const link = document.createElement('a');
     link.href = canvasRef.current.toDataURL('image/png');
-    link.download = `lensify-tryon-${selectedProduct?.name || 'glasses'}.png`;
+    link.download = `lensify-tryon-${selectedFrame.name}.png`;
     link.click();
   };
 
-  const finalPrice = selectedProduct
-    ? selectedProduct.price - (selectedProduct.price * selectedProduct.discount) / 100
-    : 0;
-
-  const hasOverlay = selectedProduct ? !!overlayImages[selectedProduct.name] : false;
+  const finalPrice = selectedFrame.price - (selectedFrame.price * selectedFrame.discount) / 100;
 
   return (
     <>
       <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
         {/* Header */}
-        <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
-          <div className="relative max-w-7xl mx-auto px-6 py-12 text-center">
+        <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+          <div className="max-w-7xl mx-auto px-6 py-12 text-center">
             <h1 className="text-4xl font-bold text-white mb-2">Virtual Try-On</h1>
             <p className="text-blue-100">See how glasses look on you in real time</p>
           </div>
@@ -270,18 +243,11 @@ export default function TryOnPage() {
                     <>
                       <canvas ref={canvasRef} className="w-full h-full object-cover" />
                       <video ref={videoRef} className="hidden" autoPlay playsInline muted />
-                      {/* Status badge */}
                       <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold ${
                         faceDetected ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white'
                       }`}>
                         {faceDetected ? '✓ Face Detected' : '⚠ Searching for face...'}
                       </div>
-                      {/* AR quality badge */}
-                      {hasOverlay && (
-                        <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-blue-600 text-white">
-                          ✨ HD Overlay
-                        </div>
-                      )}
                     </>
                   ) : (
                     <div className="text-center text-white p-8">
@@ -294,7 +260,6 @@ export default function TryOnPage() {
 
                 {/* Controls */}
                 <div className="p-6 space-y-4">
-                  {/* Frame Scale */}
                   <div>
                     <label className="text-sm font-semibold text-gray-700 mb-2 block">
                       Frame Size: {frameScale.toFixed(1)}x
@@ -310,7 +275,6 @@ export default function TryOnPage() {
                     />
                   </div>
 
-                  {/* Buttons */}
                   <div className="flex gap-3">
                     <button
                       onClick={() => setCameraActive(!cameraActive)}
@@ -334,90 +298,69 @@ export default function TryOnPage() {
                 </div>
               </div>
 
-              {/* Selected Product Info */}
-              {selectedProduct && (
-                <div className="mt-4 bg-white rounded-2xl border border-gray-200 p-5 flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <img
-                      src={selectedProduct.imageUrl}
-                      alt={selectedProduct.name}
-                      className="w-16 h-12 object-cover rounded-lg border border-gray-100"
-                    />
-                    <div>
-                      <p className="font-bold text-gray-900">{selectedProduct.name}</p>
-                      <p className="text-sm text-gray-500">{selectedProduct.brand}</p>
-                      {hasOverlay && (
-                        <span className="text-xs text-blue-600 font-semibold">✨ HD AR Ready</span>
-                      )}
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-xl font-bold text-blue-600">Rs {finalPrice.toFixed(0)}</p>
-                    {selectedProduct.discount > 0 && (
-                      <p className="text-xs text-gray-400 line-through">Rs {selectedProduct.price}</p>
-                    )}
-                    <Link href={`/products/${selectedProduct._id}`}>
-                      <button className="mt-1 text-xs px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                        Buy Now
-                      </button>
-                    </Link>
+              {/* Selected Frame Info */}
+              <div className="mt-4 bg-white rounded-2xl border border-gray-200 p-5 flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={selectedFrame.thumb}
+                    alt={selectedFrame.name}
+                    className="w-16 h-12 object-contain rounded-lg border border-gray-100 bg-gray-50"
+                  />
+                  <div>
+                    <p className="font-bold text-gray-900">{selectedFrame.name}</p>
+                    <p className="text-xs text-green-600 font-semibold">✨ HD Transparent Overlay</p>
                   </div>
                 </div>
-              )}
+                <div className="text-right">
+                  <p className="text-xl font-bold text-blue-600">Rs {finalPrice.toFixed(0)}</p>
+                  <p className="text-xs text-gray-400 line-through">Rs {selectedFrame.price}</p>
+                  <Link href="/shop">
+                    <button className="mt-1 text-xs px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                      Buy Now
+                    </button>
+                  </Link>
+                </div>
+              </div>
             </div>
 
-            {/* Products Sidebar */}
+            {/* Frames Sidebar — sirf 3 frames */}
             <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-5">
               <h3 className="text-lg font-bold text-gray-900 mb-1">Choose Frames</h3>
-              <p className="text-xs text-gray-500 mb-4">
-                ✨ HD = transparent overlay available
-              </p>
+              <p className="text-xs text-gray-500 mb-4">3 frames available for AR try-on</p>
 
-              {loading ? (
-                <div className="flex items-center justify-center py-12">
-                  <div className="animate-spin rounded-full h-8 w-8 border-4 border-gray-200 border-t-blue-600"></div>
-                </div>
-              ) : (
-                <div className="space-y-2 max-h-[580px] overflow-y-auto pr-1">
-                  {products.map((product) => {
-                    const hasHD = !!overlayImages[product.name];
-                    return (
-                      <button
-                        key={product._id}
-                        onClick={() => setSelectedProduct(product)}
-                        className={`w-full p-3 rounded-xl border-2 text-left flex items-center gap-3 transition-all ${
-                          selectedProduct?._id === product._id
-                            ? 'border-blue-600 bg-blue-50'
-                            : 'border-gray-200 hover:border-blue-300 bg-white'
-                        }`}
-                      >
-                        <img
-                          src={product.imageUrl}
-                          alt={product.name}
-                          className="w-14 h-10 object-cover rounded-lg flex-shrink-0 border border-gray-100"
-                        />
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-1">
-                            <p className="text-sm font-semibold text-gray-900 truncate">{product.name}</p>
-                            {hasHD && <span className="text-xs text-blue-500 flex-shrink-0">✨</span>}
-                          </div>
-                          <p className="text-xs text-gray-500 capitalize">{product.shape}</p>
-                          <p className="text-xs font-bold text-blue-600">
-                            Rs {(product.price - (product.price * product.discount) / 100).toFixed(0)}
-                          </p>
-                        </div>
-                        {selectedProduct?._id === product._id && (
-                          <span className="text-blue-600 text-lg flex-shrink-0">✓</span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              )}
+              <div className="space-y-3">
+                {frameModels.map((frame) => (
+                  <button
+                    key={frame.id}
+                    onClick={() => setSelectedFrame(frame)}
+                    className={`w-full p-4 rounded-xl border-2 text-left flex items-center gap-3 transition-all ${
+                      selectedFrame.id === frame.id
+                        ? 'border-blue-600 bg-blue-50'
+                        : 'border-gray-200 hover:border-blue-300 bg-white'
+                    }`}
+                  >
+                    <img
+                      src={frame.thumb}
+                      alt={frame.name}
+                      className="w-16 h-12 object-contain rounded-lg flex-shrink-0 bg-gray-50 border border-gray-100"
+                    />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-semibold text-gray-900">{frame.name}</p>
+                      <p className="text-xs text-green-600 font-medium">✨ HD Overlay</p>
+                      <p className="text-xs font-bold text-blue-600">
+                        Rs {(frame.price - (frame.price * frame.discount) / 100).toFixed(0)}
+                      </p>
+                    </div>
+                    {selectedFrame.id === frame.id && (
+                      <span className="text-blue-600 text-xl">✓</span>
+                    )}
+                  </button>
+                ))}
+              </div>
 
-              <Link href="/shop" className="block mt-4">
+              <Link href="/shop" className="block mt-6">
                 <button className="w-full py-3 border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all">
-                  View All Products
+                  Shop All Frames
                 </button>
               </Link>
             </div>
