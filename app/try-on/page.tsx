@@ -2,294 +2,444 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import { Footer } from '@/components/footer';
+
+interface Product {
+  _id: string;
+  name: string;
+  price: number;
+  discount: number;
+  imageUrl: string;
+  brand: string;
+  shape: string;
+  category: string;
+}
+
+// VTO overlay mapping — transparent PNG images for AR
+// Jab bhi nayi PNG ready ho, yahan add karo
+const overlayImages: Record<string, string> = {
+  'Lensify Classic Black Rectangle': '/products/Lensify_Classic_Black_Rectangle.png',
+  'Lensify Sage Green Round': '/products/Lensify_Sage_Green_Round.png',
+  'Lensify Minimalist Square': '/products/Lensify_Minimalist_Square.png',
+};
 
 export default function TryOnPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const [cameraActive, setCameraActive] = useState(false);
-  const [selectedFrames, setSelectedFrames] = useState<string>('/assets/frames/aviators.svg');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [faceDetected, setFaceDetected] = useState(false);
+  const [frameScale, setFrameScale] = useState(1.0);
 
-  const frameModels = [
-    { id: 'aviators', name: 'Black Aviators', color: '#000000', price: 189.99, overlay: '/assets/frames/aviators.svg', thumb: '/assets/frames/aviators.svg' },
-    { id: 'round', name: 'Gold Round', color: '#FFD700', price: 199.99, overlay: '/assets/frames/round.svg', thumb: '/assets/frames/round.svg' },
-    { id: 'cat-eye', name: 'Cat Eye', color: '#8B4513', price: 179.99, overlay: '/assets/frames/cat-eye.svg', thumb: '/assets/frames/cat-eye.svg' },
-    { id: 'square', name: 'Square', color: '#A9927D', price: 159.99, overlay: '/assets/frames/square.svg', thumb: '/assets/frames/square.svg' },
-    { id: 'clear', name: 'Clear Frames', color: '#E6E6E6', price: 129.99, overlay: '/assets/frames/clear.svg', thumb: '/assets/frames/clear.svg' },
-    { id: 'tortoise', name: 'Tortoise Shell', color: '#7A4A2D', price: 209.99, overlay: '/assets/frames/tortoise.svg', thumb: '/assets/frames/tortoise.svg' },
-  ];
+  // Fetch real products from database
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch('/api/products?limit=50');
+        const data = await response.json();
+        const glasses = Array.isArray(data)
+          ? data.filter((p: Product) => p.category !== 'contacts')
+          : [];
+        setProducts(glasses);
+        if (glasses.length > 0) setSelectedProduct(glasses[0]);
+      } catch (error) {
+        console.error('Failed to fetch products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchProducts();
+  }, []);
 
   useEffect(() => {
-    const startCameraAndFaceMesh = async () => {
+    if (!cameraActive) return;
+
+    const startCamera = async () => {
       try {
-        // start media stream
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: 'user' },
+        });
         streamRef.current = stream;
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
           await videoRef.current.play();
         }
-
-        // Dynamically load MediaPipe FaceMesh and Camera utils from CDN if available
-        if (!(window as any).FaceMesh || !(window as any).Camera) {
-          await Promise.all([
-            new Promise<void>((resolve, reject) => {
-              const s = document.createElement('script');
-              s.src = 'https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js';
-              s.onload = () => resolve();
-              s.onerror = () => reject(new Error('Failed to load face_mesh'));
-              document.head.appendChild(s);
-            }),
-            new Promise<void>((resolve, reject) => {
-              const s = document.createElement('script');
-              s.src = 'https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js';
-              s.onload = () => resolve();
-              s.onerror = () => reject(new Error('Failed to load camera_utils'));
-              document.head.appendChild(s);
-            }),
-          ]).catch((err) => {
-            console.warn('Could not load MediaPipe from CDN, falling back to simple overlay:', err);
-            return;
-          });
-        }
-
-        // If FaceMesh is available, set up detector and camera integration
-        if ((window as any).FaceMesh && (window as any).Camera && videoRef.current) {
-          const FaceMesh: any = (window as any).FaceMesh;
-          const Camera: any = (window as any).Camera;
-
-          const faceMesh = new FaceMesh({ locateFile: (file: string) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}` });
-          faceMesh.setOptions({
-            maxNumFaces: 1,
-            refineLandmarks: true,
-            minDetectionConfidence: 0.5,
-            minTrackingConfidence: 0.5,
-          });
-
-          // onResults will draw overlays using landmarks
-          faceMesh.onResults((results: any) => {
-            const canvas = canvasRef.current;
-            const video = videoRef.current;
-            if (!canvas || !video) return;
-            const ctx = canvas.getContext('2d');
-            if (!ctx) return;
-
-            // draw mirrored video
-            canvas.width = video.videoWidth || canvas.width || 640;
-            canvas.height = video.videoHeight || canvas.height || 480;
-            ctx.save();
-            ctx.scale(-1, 1);
-            ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
-            ctx.restore();
-
-            // draw frame overlay if landmarks exist
-            const faceLandmarks = results.multiFaceLandmarks && results.multiFaceLandmarks[0];
-            if (faceLandmarks && selectedFrames) {
-              // compute positions using a few landmark indices
-              // approximate eye centers using landmarks 33 (left), 263 (right)
-              const left = faceLandmarks[33];
-              const right = faceLandmarks[263];
-
-              const lx = (1 - left.x) * canvas.width; // mirrored
-              const ly = left.y * canvas.height;
-              const rx = (1 - right.x) * canvas.width;
-              const ry = right.y * canvas.height;
-
-              // center and scale overlay
-              const centerX = (lx + rx) / 2;
-              const centerY = (ly + ry) / 2;
-              const eyeDist = Math.hypot(rx - lx, ry - ly);
-              const overlayWidth = eyeDist * 2.6;
-              const overlayHeight = overlayWidth * 0.45;
-
-              // if selectedFrames is an overlay path, draw the image
-              if (selectedFrames.startsWith('/') || selectedFrames.includes('.svg')) {
-                const img = new Image();
-                img.src = selectedFrames;
-                img.onload = () => {
-                  ctx.save();
-                  ctx.translate(centerX, centerY - overlayHeight * 0.12);
-                  ctx.drawImage(img, -overlayWidth / 2, -overlayHeight / 2, overlayWidth, overlayHeight);
-                  ctx.restore();
-                };
-              } else {
-                // fallback: colored ellipse overlay
-                ctx.strokeStyle = selectedFrames;
-                ctx.lineWidth = Math.max(2, Math.round(canvas.width / 200));
-                ctx.fillStyle = selectedFrames + '33';
-                ctx.beginPath();
-                ctx.ellipse(centerX - overlayWidth * 0.18, centerY, overlayWidth * 0.45, overlayHeight / 2, 0, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.ellipse(centerX + overlayWidth * 0.18, centerY, overlayWidth * 0.45, overlayHeight / 2, 0, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(centerX - overlayWidth * 0.05, centerY);
-                ctx.lineTo(centerX + overlayWidth * 0.05, centerY);
-                ctx.stroke();
-              }
-            }
-          });
-
-          // Camera integration provided by MediaPipe
-          const camera = new Camera(videoRef.current, {
-            onFrame: async () => {
-              await faceMesh.send({ image: videoRef.current });
-            },
-            width: 1280,
-            height: 720,
-          });
-          camera.start();
-
-          // store camera so we can stop it later
-          (window as any).__mp_camera = camera;
-          (window as any).__mp_faceMesh = faceMesh;
-        }
+        await loadMediaPipe();
       } catch (error) {
-        console.error('Error accessing camera or face detection:', error);
+        console.error('Camera error:', error);
         alert('Please enable camera access to use AR try-on');
         setCameraActive(false);
       }
     };
 
-    if (cameraActive) startCameraAndFaceMesh();
+    startCamera();
 
-    // Cleanup when cameraActive toggles off
     return () => {
-      if (!cameraActive) {
-        try {
-          if ((window as any).__mp_camera) {
-            (window as any).__mp_camera.stop();
-            (window as any).__mp_camera = null;
-          }
-        } catch (e) {
-          // ignore
+      try {
+        if ((window as any).__mp_camera) {
+          (window as any).__mp_camera.stop();
+          (window as any).__mp_camera = null;
         }
-        if (streamRef.current) {
-          streamRef.current.getTracks().forEach((t) => t.stop());
-          streamRef.current = null;
-        }
-        if (videoRef.current) videoRef.current.srcObject = null;
+      } catch (e) {}
+      if (streamRef.current) {
+        streamRef.current.getTracks().forEach((t) => t.stop());
+        streamRef.current = null;
       }
+      if (videoRef.current) videoRef.current.srcObject = null;
+      setFaceDetected(false);
     };
-  }, [cameraActive, selectedFrames]);
+  }, [cameraActive]);
+
+  // Restart MediaPipe when product changes
+  useEffect(() => {
+    if (cameraActive && selectedProduct) {
+      setupFaceMesh();
+    }
+  }, [selectedProduct, frameScale]);
+
+  const loadMediaPipe = async () => {
+    if ((window as any).FaceMesh && (window as any).Camera) {
+      setupFaceMesh();
+      return;
+    }
+
+    await Promise.all([
+      new Promise<void>((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.js';
+        s.onload = () => resolve();
+        s.onerror = () => reject();
+        document.head.appendChild(s);
+      }),
+      new Promise<void>((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js';
+        s.onload = () => resolve();
+        s.onerror = () => reject();
+        document.head.appendChild(s);
+      }),
+    ]).catch(() => {
+      console.warn('MediaPipe load failed');
+    });
+
+    setupFaceMesh();
+  };
+
+  const setupFaceMesh = () => {
+    if (!(window as any).FaceMesh || !(window as any).Camera || !videoRef.current) return;
+
+    // Stop previous instance
+    try {
+      if ((window as any).__mp_camera) {
+        (window as any).__mp_camera.stop();
+      }
+    } catch (e) {}
+
+    const FaceMesh = (window as any).FaceMesh;
+    const Camera = (window as any).Camera;
+
+    const faceMesh = new FaceMesh({
+      locateFile: (file: string) =>
+        `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`,
+    });
+
+    faceMesh.setOptions({
+      maxNumFaces: 1,
+      refineLandmarks: true,
+      minDetectionConfidence: 0.5,
+      minTrackingConfidence: 0.5,
+    });
+
+    faceMesh.onResults((results: any) => {
+      drawOverlay(results);
+    });
+
+    const camera = new Camera(videoRef.current, {
+      onFrame: async () => {
+        if (videoRef.current) {
+          await faceMesh.send({ image: videoRef.current });
+        }
+      },
+      width: 1280,
+      height: 720,
+    });
+
+    camera.start();
+    (window as any).__mp_camera = camera;
+    (window as any).__mp_faceMesh = faceMesh;
+  };
+
+  const drawOverlay = (results: any) => {
+    const canvas = canvasRef.current;
+    const video = videoRef.current;
+    if (!canvas || !video) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    canvas.width = video.videoWidth || 640;
+    canvas.height = video.videoHeight || 480;
+
+    // Draw mirrored video
+    ctx.save();
+    ctx.scale(-1, 1);
+    ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
+    ctx.restore();
+
+    const landmarks = results.multiFaceLandmarks?.[0];
+    if (!landmarks || !selectedProduct) {
+      setFaceDetected(false);
+      return;
+    }
+
+    setFaceDetected(true);
+
+    // Eye positions (mirrored)
+    const left = landmarks[33];
+    const right = landmarks[263];
+
+    const lx = (1 - left.x) * canvas.width;
+    const ly = left.y * canvas.height;
+    const rx = (1 - right.x) * canvas.width;
+    const ry = right.y * canvas.height;
+
+    const centerX = (lx + rx) / 2;
+    const centerY = (ly + ry) / 2;
+    const eyeDist = Math.hypot(rx - lx, ry - ly);
+
+    const overlayWidth = eyeDist * 2.6 * frameScale;
+    const overlayHeight = overlayWidth * 0.45;
+
+    // Use transparent PNG if available, else use product image
+    const overlayPath = overlayImages[selectedProduct.name] || selectedProduct.imageUrl;
+
+    const img = new Image();
+    img.src = overlayPath;
+    img.onload = () => {
+      ctx.save();
+      ctx.translate(centerX, centerY - overlayHeight * 0.12);
+      ctx.drawImage(
+        img,
+        -overlayWidth / 2,
+        -overlayHeight / 2,
+        overlayWidth,
+        overlayHeight
+      );
+      ctx.restore();
+    };
+  };
+
+  const capturePhoto = () => {
+    if (!canvasRef.current) return;
+    const link = document.createElement('a');
+    link.href = canvasRef.current.toDataURL('image/png');
+    link.download = `lensify-tryon-${selectedProduct?.name || 'glasses'}.png`;
+    link.click();
+  };
+
+  const finalPrice = selectedProduct
+    ? selectedProduct.price - (selectedProduct.price * selectedProduct.discount) / 100
+    : 0;
+
+  const hasOverlay = selectedProduct ? !!overlayImages[selectedProduct.name] : false;
 
   return (
     <>
-    <main className="min-h-screen bg-white">
-      {/* Navigation */}
-      <nav className="bg-purple-600 border-b border-purple-500 sticky top-0 z-50">
-        <div className="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
-          <Link href="/" className="text-xl font-semibold text-white">
-            Lensify
-          </Link>
-          <Link href="/shop" className="text-white hover:text-purple-100 font-medium transition-colors duration-200">
-            Shop
-          </Link>
+      <main className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100">
+        {/* Header */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+          <div className="relative max-w-7xl mx-auto px-6 py-12 text-center">
+            <h1 className="text-4xl font-bold text-white mb-2">Virtual Try-On</h1>
+            <p className="text-blue-100">See how glasses look on you in real time</p>
+          </div>
         </div>
-      </nav>
 
-      <div className="max-w-6xl mx-auto px-6 py-12">
-        <h1 className="text-3xl font-semibold mb-2 text-gray-900">AR Try-On</h1>
-        <p className="text-sm text-gray-600 mb-12">See how glasses look on you with augmented reality</p>
+        <div className="max-w-7xl mx-auto px-4 py-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Canvas/Video Section */}
-          <div className="lg:col-span-2">
-            <div className="bg-gray-100 overflow-hidden border border-gray-200">
-              {cameraActive ? (
-                <div className="relative">
-                  <canvas
-                    ref={canvasRef}
-                    width={640}
-                    height={480}
-                    className="w-full block"
-                  />
-                  <video
-                    ref={videoRef}
-                    className="hidden"
-                    autoPlay
-                    playsInline
-                    muted
-                  />
+            {/* Camera Section */}
+            <div className="lg:col-span-2">
+              <div className="bg-white rounded-2xl border border-gray-200 shadow-lg overflow-hidden">
+
+                {/* Camera View */}
+                <div className="relative bg-gray-900 aspect-video flex items-center justify-center">
+                  {cameraActive ? (
+                    <>
+                      <canvas ref={canvasRef} className="w-full h-full object-cover" />
+                      <video ref={videoRef} className="hidden" autoPlay playsInline muted />
+                      {/* Status badge */}
+                      <div className={`absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-bold ${
+                        faceDetected ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white'
+                      }`}>
+                        {faceDetected ? '✓ Face Detected' : '⚠ Searching for face...'}
+                      </div>
+                      {/* AR quality badge */}
+                      {hasOverlay && (
+                        <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-bold bg-blue-600 text-white">
+                          ✨ HD Overlay
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="text-center text-white p-8">
+                      <div className="text-6xl mb-4">👓</div>
+                      <p className="text-lg font-medium">Start camera to try on glasses</p>
+                      <p className="text-sm text-gray-400 mt-1">Make sure your face is well lit</p>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="w-full aspect-video flex items-center justify-center bg-gray-100">
-                  <div className="text-center">
-                    <p className="text-gray-600 text-sm">Click "Start AR Try-On" to begin</p>
+
+                {/* Controls */}
+                <div className="p-6 space-y-4">
+                  {/* Frame Scale */}
+                  <div>
+                    <label className="text-sm font-semibold text-gray-700 mb-2 block">
+                      Frame Size: {frameScale.toFixed(1)}x
+                    </label>
+                    <input
+                      type="range"
+                      min="0.5"
+                      max="2.0"
+                      step="0.1"
+                      value={frameScale}
+                      onChange={(e) => setFrameScale(parseFloat(e.target.value))}
+                      className="w-full accent-blue-600"
+                    />
+                  </div>
+
+                  {/* Buttons */}
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => setCameraActive(!cameraActive)}
+                      className={`flex-1 py-3 rounded-xl font-bold text-white transition-all ${
+                        cameraActive
+                          ? 'bg-red-500 hover:bg-red-600'
+                          : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700'
+                      }`}
+                    >
+                      {cameraActive ? '⏹ Stop Camera' : '▶ Start Try-On'}
+                    </button>
+                    {cameraActive && (
+                      <button
+                        onClick={capturePhoto}
+                        className="flex-1 py-3 rounded-xl font-bold text-white bg-green-500 hover:bg-green-600 transition-all"
+                      >
+                        📸 Take Photo
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Selected Product Info */}
+              {selectedProduct && (
+                <div className="mt-4 bg-white rounded-2xl border border-gray-200 p-5 flex items-center justify-between">
+                  <div className="flex items-center gap-4">
+                    <img
+                      src={selectedProduct.imageUrl}
+                      alt={selectedProduct.name}
+                      className="w-16 h-12 object-cover rounded-lg border border-gray-100"
+                    />
+                    <div>
+                      <p className="font-bold text-gray-900">{selectedProduct.name}</p>
+                      <p className="text-sm text-gray-500">{selectedProduct.brand}</p>
+                      {hasOverlay && (
+                        <span className="text-xs text-blue-600 font-semibold">✨ HD AR Ready</span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-xl font-bold text-blue-600">Rs {finalPrice.toFixed(0)}</p>
+                    {selectedProduct.discount > 0 && (
+                      <p className="text-xs text-gray-400 line-through">Rs {selectedProduct.price}</p>
+                    )}
+                    <Link href={`/products/${selectedProduct._id}`}>
+                      <button className="mt-1 text-xs px-3 py-1 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Buy Now
+                      </button>
+                    </Link>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="flex gap-4 mt-6">
-              <button
-                onClick={() => setCameraActive(!cameraActive)}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 text-base rounded-lg shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
-              >
-                {cameraActive ? 'Stop AR Try-On' : 'Start AR Try-On'}
-              </button>
-            </div>
-          </div>
+            {/* Products Sidebar */}
+            <div className="bg-white rounded-2xl border border-gray-200 shadow-lg p-5">
+              <h3 className="text-lg font-bold text-gray-900 mb-1">Choose Frames</h3>
+              <p className="text-xs text-gray-500 mb-4">
+                ✨ HD = transparent overlay available
+              </p>
 
-          {/* Frames Selection */}
-          <div>
-            <h3 className="text-lg font-semibold mb-6 text-gray-900">Choose Frames</h3>
-            <div className="space-y-3">
-              {frameModels.map((frame) => (
-                <button
-                  key={frame.id}
-                  onClick={() => setSelectedFrames(frame.overlay || frame.color)}
-                  className={`w-full p-3 border transition-all duration-300 text-left text-sm flex items-center gap-3 ${
-                    selectedFrames === frame.overlay || selectedFrames === frame.color
-                      ? 'border-purple-600 bg-purple-50'
-                      : 'border-gray-200 bg-white hover:border-gray-300'
-                  }`}
-                >
-                  <div className="w-12 h-10 flex items-center justify-center">
-                    <img src={frame.thumb} alt={frame.name} className="w-full h-auto" />
-                  </div>
-                  <div className="flex-1">
-                    <p className="font-semibold text-gray-900">{frame.name}</p>
-                    <p className="text-sm text-gray-600">${frame.price.toFixed(2)}</p>
-                  </div>
+              {loading ? (
+                <div className="flex items-center justify-center py-12">
+                  <div className="animate-spin rounded-full h-8 w-8 border-4 border-gray-200 border-t-blue-600"></div>
+                </div>
+              ) : (
+                <div className="space-y-2 max-h-[580px] overflow-y-auto pr-1">
+                  {products.map((product) => {
+                    const hasHD = !!overlayImages[product.name];
+                    return (
+                      <button
+                        key={product._id}
+                        onClick={() => setSelectedProduct(product)}
+                        className={`w-full p-3 rounded-xl border-2 text-left flex items-center gap-3 transition-all ${
+                          selectedProduct?._id === product._id
+                            ? 'border-blue-600 bg-blue-50'
+                            : 'border-gray-200 hover:border-blue-300 bg-white'
+                        }`}
+                      >
+                        <img
+                          src={product.imageUrl}
+                          alt={product.name}
+                          className="w-14 h-10 object-cover rounded-lg flex-shrink-0 border border-gray-100"
+                        />
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1">
+                            <p className="text-sm font-semibold text-gray-900 truncate">{product.name}</p>
+                            {hasHD && <span className="text-xs text-blue-500 flex-shrink-0">✨</span>}
+                          </div>
+                          <p className="text-xs text-gray-500 capitalize">{product.shape}</p>
+                          <p className="text-xs font-bold text-blue-600">
+                            Rs {(product.price - (product.price * product.discount) / 100).toFixed(0)}
+                          </p>
+                        </div>
+                        {selectedProduct?._id === product._id && (
+                          <span className="text-blue-600 text-lg flex-shrink-0">✓</span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+
+              <Link href="/shop" className="block mt-4">
+                <button className="w-full py-3 border-2 border-blue-600 text-blue-600 font-bold rounded-xl hover:bg-blue-50 transition-all">
+                  View All Products
                 </button>
-              ))}
+              </Link>
             </div>
+          </div>
 
-            <Link href="/shop" className="block mt-8" onClick={() => localStorage.setItem('prefSelectedFrame', selectedFrames)}>
-              <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-sm">
-                View All Frames
-              </Button>
-            </Link>
+          {/* Info Cards */}
+          <div className="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              { icon: '🎯', title: 'Precise Fit', desc: 'See exactly how frames align with your face' },
+              { icon: '⚡', title: 'Real-Time AR', desc: 'MediaPipe face detection technology' },
+              { icon: '📸', title: 'Take a Photo', desc: 'Save and share your try-on look' },
+            ].map((item) => (
+              <div key={item.title} className="bg-white rounded-2xl border border-gray-200 p-6 text-center">
+                <div className="text-4xl mb-3">{item.icon}</div>
+                <h4 className="font-bold text-gray-900 mb-1">{item.title}</h4>
+                <p className="text-sm text-gray-500">{item.desc}</p>
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* Info Section */}
-        <div className="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-gray-50 border border-gray-200 p-8">
-            <div className="text-4xl mb-4">🎯</div>
-            <h4 className="text-lg font-bold mb-2 text-gray-900">Precise Fit</h4>
-            <p className="text-gray-600">See exactly how frames align with your face</p>
-          </div>
-          <div className="bg-gray-50 border border-gray-200 p-8">
-            <div className="text-4xl mb-4">⚡</div>
-            <h4 className="text-lg font-bold mb-2 text-gray-900">Real-Time</h4>
-            <p className="text-gray-600">Instant preview using your device camera</p>
-          </div>
-          <div className="bg-gray-50 border border-gray-200 p-8">
-            <div className="text-4xl mb-4">✨</div>
-            <h4 className="text-lg font-bold mb-2 text-gray-900">Shop with Confidence</h4>
-            <p className="text-gray-600">Make better decisions before you buy</p>
-          </div>
-        </div>
-      </div>
-    </main>
-    <Footer />
+      </main>
+      <Footer />
     </>
   );
 }
