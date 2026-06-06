@@ -10,12 +10,15 @@ export default function TryOnPage() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const [cameraActive, setCameraActive] = useState(false);
-  const [selectedFrames, setSelectedFrames] = useState<string>('/assets/frames/Classic Black Rectangle.png');
+  const [selectedFrames, setSelectedFrames] = useState<string>('/assets/frames/aviators.svg');
 
   const frameModels = [
-    { id: 'png1', name: 'Classic Black Rectangle', color: '#000000', price: 189.99, overlay: '/assets/frames/Classic Black Rectangle.png', thumb: '/assets/frames/Classic Black Rectangle.png' },
-    { id: 'png2', name: 'Sage Green Round', color: '#FFD700', price: 199.99, overlay: '/assets/frames/Sage Green Round.png', thumb: '/assets/frames/Sage Green Round.png' },
-    { id: 'png3', name: 'Minimalist Square', color: '#8B4513', price: 179.99, overlay: '/assets/frames/Minimalist Square.png', thumb: '/assets/frames/Minimalist Square.png' },
+    { id: 'aviators', name: 'Black Aviators', color: '#000000', price: 189.99, overlay: '/assets/frames/aviators.svg', thumb: '/assets/frames/aviators.svg' },
+    { id: 'round', name: 'Gold Round', color: '#FFD700', price: 199.99, overlay: '/assets/frames/round.svg', thumb: '/assets/frames/round.svg' },
+    { id: 'cat-eye', name: 'Cat Eye', color: '#8B4513', price: 179.99, overlay: '/assets/frames/cat-eye.svg', thumb: '/assets/frames/cat-eye.svg' },
+    { id: 'square', name: 'Square', color: '#A9927D', price: 159.99, overlay: '/assets/frames/square.svg', thumb: '/assets/frames/square.svg' },
+    { id: 'clear', name: 'Clear Frames', color: '#E6E6E6', price: 129.99, overlay: '/assets/frames/clear.svg', thumb: '/assets/frames/clear.svg' },
+    { id: 'tortoise', name: 'Tortoise Shell', color: '#7A4A2D', price: 209.99, overlay: '/assets/frames/tortoise.svg', thumb: '/assets/frames/tortoise.svg' },
   ];
 
   useEffect(() => {
@@ -101,8 +104,8 @@ export default function TryOnPage() {
               const overlayWidth = eyeDist * 2.6;
               const overlayHeight = overlayWidth * 0.45;
 
-              // if selectedFrames is an image path, draw the image
-              if (selectedFrames.startsWith('/')) {
+              // if selectedFrames is an overlay path, draw the image
+              if (selectedFrames.startsWith('/') || selectedFrames.includes('.svg')) {
                 const img = new Image();
                 img.src = selectedFrames;
                 img.onload = () => {
