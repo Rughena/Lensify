@@ -14,7 +14,7 @@ export default function TryOnPage() {
 
   const frameModels = [
     { id: 'aviators', name: 'Black Aviators', color: '#000000', price: 189.99, overlay: '/assets/frames/aviators.svg', thumb: '/assets/frames/aviators.svg' },
-    { id: 'lensify-classic-black', name: 'Lensify Classic Black', color: '#000000', price: 189.99, overlay: '/assets/frames/lensify-classic-black.svg', thumb: '/assets/frames/lensify-classic-black.svg' }
+    { id: 'lensify-classic-black', name: 'Lensify Classic Black', color: '#000000', price: 189.99, overlay: '/assets/frames/lensify-classic-black.svg', thumb: '/assets/frames/lensify-classic-black.svg' }, // <-- Added missing comma here
     { id: 'round', name: 'Gold Round', color: '#FFD700', price: 199.99, overlay: '/assets/frames/round.svg', thumb: '/assets/frames/round.svg' },
     { id: 'cat-eye', name: 'Cat Eye', color: '#8B4513', price: 179.99, overlay: '/assets/frames/cat-eye.svg', thumb: '/assets/frames/cat-eye.svg' },
     { id: 'square', name: 'Square', color: '#A9927D', price: 159.99, overlay: '/assets/frames/square.svg', thumb: '/assets/frames/square.svg' },
