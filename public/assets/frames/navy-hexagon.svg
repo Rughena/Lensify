@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Dark Matte Navy Metallic Frame Gradient -->
+    <linearGradient id="navyMetalFrame" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1b2a4a"/>
+      <stop offset="40%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+
+    <!-- Deep Navy Blue Sunglass Lens Gradient -->
+    <linearGradient id="navyLens" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="50%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#030712"/>
+    </linearGradient>
+
+    <!-- Studio Softbox Vertical Highlight Reflection -->
+    <linearGradient id="softboxGlare" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="20%" stop-color="#ffffff" stop-opacity="0.03"/>
+      <stop offset="70%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="90%" stop-color="#ffffff" stop-opacity="0.15"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.25"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background (Optional/Transparent) -->
+  <rect width="100%" height="100%" fill="none"/>
+
+  <g transform="translate(0, 15)">
+    <!-- BACKGROUND WIRE ARMS -->
+    <path d="M 130 216 C 175 224, 200 245, 225 275" fill="none" stroke="#0f172a" stroke-width="2.5"/>
+    <path d="M 670 216 C 625 224, 600 245, 575 275" fill="none" stroke="#0f172a" stroke-width="2.5"/>
+
+    <!-- MINIMALIST FLAT METAL BRIDGE -->
+    <path d="M 362 216 L 438 216" fill="none" stroke="url(#navyMetalFrame)" stroke-width="3.5" stroke-linecap="round"/>
+
+    <!-- LEFT HEXAGONAL / OCTAGONAL EYE -->
+    <g id="leftHexEye">
+      <!-- Deep Navy Tinted Lens -->
+      <polygon points="190,154 310,154 362,206 362,246 310,298 190,298 138,246 138,206" fill="url(#navyLens)"/>
+      <!-- Softbox Studio Reflection Overlay -->
+      <polygon points="190,154 310,154 362,206 362,246 310,298 190,298 138,246 138,206" fill="url(#softboxGlare)"/>
+      <!-- Crisp Fine Wire Rim Profile -->
+      <polygon points="190,154 310,154 362,206 362,246 310,298 190,298 138,246 138,206" fill="none" stroke="url(#navyMetalFrame)" stroke-width="3.5" stroke-linejoin="round"/>
+    </g>
+
+    <!-- RIGHT HEXAGONAL / OCTAGONAL EYE -->
+    <g id="rightHexEye">
+      <!-- Deep Navy Tinted Lens -->
+      <polygon points="610,154 490,154 438,206 438,246 490,298 610,298 662,246 662,206" fill="url(#navyLens)"/>
+      <!-- Softbox Studio Reflection Overlay -->
+      <polygon points="610,154 490,154 438,206 438,246 490,298 610,298 662,246 662,206" fill="url(#softboxGlare)"/>
+      <!-- Crisp Fine Wire Rim Profile -->
+      <polygon points="610,154 490,154 438,206 438,246 490,298 610,298 662,246 662,206" fill="none" stroke="url(#navyMetalFrame)" stroke-width="3.5" stroke-linejoin="round"/>
+    </g>
+
+    <!-- FROSTED SILICONE NOSE PADS WITH DARK METAL MOUNTS -->
+    <ellipse cx="350" cy="244" rx="4" ry="8" fill="#ffffff" fill-opacity="0.35" stroke="url(#navyMetalFrame)" stroke-width="1.5" transform="rotate(-15, 350, 244)"/>
+    <ellipse cx="450" cy="244" rx="4" ry="8" fill="#ffffff" fill-opacity="0.35" stroke="url(#navyMetalFrame)" stroke-width="1.5" transform="rotate(15, 450, 244)"/>
+
+    <!-- HORIZONTAL STEPPED ENDPIECE HINGES -->
+    <path d="M 138 216 L 114 216 M 114 213 L 114 219" fill="none" stroke="url(#navyMetalFrame)" stroke-width="3" stroke-linecap="round"/>
+    <path d="M 662 216 L 686 216 M 686 213 L 686 219" fill="none" stroke="url(#navyMetalFrame)" stroke-width="3" stroke-linecap="round"/>
+  </g>
+</svg>

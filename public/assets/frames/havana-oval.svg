@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Translucent Amber / Havana Brown Acetate Gradient -->
+    <linearGradient id="havanaAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d66a31" stop-opacity="0.9"/>
+      <stop offset="30%" stop-color="#b54f16" stop-opacity="0.95"/>
+      <stop offset="70%" stop-color="#823103" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#ab4f1d" stop-opacity="0.85"/>
+    </linearGradient>
+
+    <!-- Internal Metal Core Wire Gradient for Translucent Temples -->
+    <linearGradient id="coreWire" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b08e51"/>
+      <stop offset="50%" stop-color="#fae2b6"/>
+      <stop offset="100%" stop-color="#8f6d30"/>
+    </linearGradient>
+
+    <!-- Smooth Lens Glare Reflection -->
+    <linearGradient id="lensReflection" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.28"/>
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background (Optional/Transparent) -->
+  <rect width="100%" height="100%" fill="none"/>
+
+  <g transform="translate(0, 15)">
+    <!-- TRANSLUCENT TEMPLES WITH INTERNAL METAL CORE WIRES -->
+    <!-- Left Temple -->
+    <g id="leftTemple" opacity="0.85">
+      <path d="M 125 200 C 100 220, 80 240, 68 255 C 64 260, 72 266, 78 260 C 90 245, 110 225, 132 205 Z" fill="#9c4210"/>
+      <path d="M 115 210 C 98 225, 84 240, 76 250" fill="none" stroke="url(#coreWire)" stroke-width="2" opacity="0.6"/>
+    </g>
+    <!-- Right Temple -->
+    <g id="rightTemple" opacity="0.85">
+      <path d="M 675 200 C 700 220, 720 240, 732 255 C 736 260, 728 266, 722 260 C 710 245, 690 225, 668 205 Z" fill="#9c4210"/>
+      <path d="M 685 210 C 702 225, 716 240, 724 250" fill="none" stroke="url(#coreWire)" stroke-width="2" opacity="0.6"/>
+    </g>
+
+    <!-- MAIN CHUNKY HAVANA FRAME CHASSIS -->
+    <!-- Formed with the iconic high keyhole-style bridge nose arch and flared temples -->
+    <path d="
+      M 140 160 
+      H 112 V 172 H 100 V 186 H 112 V 205 L 125 235
+      C 135 285, 180 320, 245 320
+      C 305 320, 345 285, 360 245
+      C 370 225, 382 208, 400 208
+      C 418 208, 430 225, 440 245
+      C 455 285, 495 320, 555 320
+      C 620 320, 665 285, 675 235
+      L 688 205 H 700 V 186 H 688 V 172 H 660
+      C 600 152, 510 165, 452 195
+      C 434 204, 420 196, 400 196
+      C 380 196, 366 204, 348 195
+      C 290 165, 200 152, 140 160 Z" 
+      fill="url(#havanaAmber)" 
+      stroke="#5e2203" 
+      stroke-width="1.5"
+    />
+
+    <!-- STEPPED GEOMETRIC INSET LINE ACCENTS (Outer Corners) -->
+    <path d="M 140 165 H 117 V 177 H 105 V 191 H 117 V 205" fill="none" stroke="#2b1002" stroke-width="2.5" stroke-linecap="square"/>
+    <path d="M 660 165 H 683 V 177 H 695 V 191 H 683 V 205" fill="none" stroke="#2b1002" stroke-width="2.5" stroke-linecap="square"/>
+
+    <!-- INNER BEVEL HIGHLIGHT (Adds the 3D molded crystal plastic depth) -->
+    <path d="
+      M 142 164 C 198 157, 282 170, 340 199 
+      M 460 199 C 518 170, 602 157, 658 164" 
+      fill="none" stroke="#ff9b66" stroke-width="1.5" opacity="0.4"
+    />
+
+    <!-- LEFT OVAL LENS -->
+    <g id="leftOval">
+      <path d="
+        M 165 190 
+        C 220 180, 320 182, 344 212
+        C 355 228, 348 268, 325 288
+        C 295 310, 195 312, 160 288
+        C 135 264, 142 202, 165 190 Z" 
+        fill="#ffffff" fill-opacity="0.15"
+      />
+      <path d="M 165 190 C 220 180, 320 182, 344 212 C 355 228, 348 268, 325 288 C 295 310, 195 312, 160 288 C 135 264, 142 202, 165 190 Z" fill="url(#lensReflection)"/>
+    </g>
+
+    <!-- RIGHT OVAL LENS -->
+    <g id="rightOval">
+      <path d="
+        M 635 190 
+        C 580 180, 480 182, 456 212
+        C 445 228, 452 268, 475 288
+        C 505 310, 605 312, 640 288
+        C 665 264, 658 202, 635 190 Z" 
+        fill="#ffffff" fill-opacity="0.15"
+      />
+      <path d="M 635 190 C 580 180, 480 182, 456 212 C 445 228, 452 268, 475 288 C 505 310, 605 312, 640 288 C 665 264, 658 202, 635 190 Z" fill="url(#lensReflection)"/>
+    </g>
+
+    <!-- INTEGRATED ACETATE NOSE MOUNTS -->
+    <path d="M 346 250 C 342 262, 332 272, 324 274" fill="none" stroke="#ff9b66" stroke-width="1" opacity="0.3"/>
+    <path d="M 454 250 C 458 262, 468 272, 476 274" fill="none" stroke="#ff9b66" stroke-width="1" opacity="0.3"/>
+  </g>
+</svg>

@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="metalRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ebd0a0"/>
+      <stop offset="30%" stop-color="#fcf3cf"/>
+      <stop offset="50%" stop-color="#bdaf87"/>
+      <stop offset="75%" stop-color="#fdf6e2"/>
+      <stop offset="100%" stop-color="#9a8c63"/>
+    </linearGradient>
+
+    <linearGradient id="tealLens" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0a3940"/>
+      <stop offset="25%" stop-color="#0d5257"/>
+      <stop offset="65%" stop-color="#12827a"/>
+      <stop offset="90%" stop-color="#17a291"/>
+      <stop offset="100%" stop-color="#4fd1c5"/>
+    </linearGradient>
+    
+    <linearGradient id="lensStreak" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/>
+      <stop offset="20%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="none"/>
+
+  <g transform="translate(0, 15)">
+    <path d="M 160 215 C 130 235, 110 250, 100 262 C 96 267, 102 272, 106 266 C 118 252, 138 236, 165 218 Z" fill="#1a1a1a"/>
+    <path d="M 640 215 C 670 235, 690 250, 700 262 C 704 267, 698 272, 694 266 C 682 252, 662 236, 635 218 Z" fill="#1a1a1a"/>
+
+    <path d="M 378 206 C 390 192, 410 192, 422 206" fill="none" stroke="url(#metalRim)" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 379 209 C 392 196, 408 196, 421 209" fill="none" stroke="#6e6142" stroke-width="1" opacity="0.4"/>
+
+    <g id="leftEye">
+      <circle cx="260" cy="220" r="110" fill="url(#tealLens)"/>
+      <path d="M 152 200 C 180 140, 240 115, 310 125 C 240 135, 175 180, 152 200 Z" fill="url(#lensStreak)"/>
+      <ellipse cx="320" cy="160" rx="35" ry="120" fill="#ffffff" transform="rotate(-30, 320, 160)" opacity="0.08"/>
+      
+      <circle cx="260" cy="220" r="111" fill="none" stroke="url(#metalRim)" stroke-width="4"/>
+      
+      <path d="M 150 214 L 150 148 L 244 148" fill="none" stroke="url(#metalRim)" stroke-width="3.5" stroke-linejoin="miter" stroke-linecap="round"/>
+      <line x1="243" y1="148" x2="246" y2="151" stroke="url(#metalRim)" stroke-width="3"/>
+    </g>
+
+    <g id="rightEye">
+      <circle cx="540" cy="220" r="110" fill="url(#tealLens)"/>
+      <path d="M 432 200 C 460 140, 520 115, 590 125 C 520 135, 455 180, 432 200 Z" fill="url(#lensStreak)"/>
+      <ellipse cx="600" cy="160" rx="35" ry="120" fill="#ffffff" transform="rotate(-30, 600, 160)" opacity="0.08"/>
+      
+      <circle cx="540" cy="220" r="111" fill="none" stroke="url(#metalRim)" stroke-width="4"/>
+      
+      <path d="M 650 214 L 650 148 L 556 148" fill="none" stroke="url(#metalRim)" stroke-width="3.5" stroke-linejoin="miter" stroke-linecap="round"/>
+      <line x1="557" y1="148" x2="554" y2="151" stroke="url(#metalRim)" stroke-width="3"/>
+    </g>
+
+    <path d="M 366 225 C 364 235, 368 245, 372 248" fill="none" stroke="url(#metalRim)" stroke-width="2.5"/>
+    <ellipse cx="373" cy="242" rx="4" ry="8" fill="#ffffff" opacity="0.7" transform="rotate(-15, 373, 242)"/>
+    <path d="M 434 225 C 436 235, 432 245, 428 248" fill="none" stroke="url(#metalRim)" stroke-width="2.5"/>
+    <ellipse cx="427" cy="242" rx="4" ry="8" fill="#ffffff" opacity="0.7" transform="rotate(15, 427, 242)"/>
+
+    <rect x="144" y="210" width="5" height="10" rx="1" fill="url(#metalRim)"/>
+    <rect x="651" y="210" width="5" height="10" rx="1" fill="url(#metalRim)"/>
+  </g>
+</svg>

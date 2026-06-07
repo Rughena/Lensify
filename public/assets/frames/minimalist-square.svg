@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="goldWire" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#e5c185"/>
+      <stop offset="25%" stop-color="#fbf1cc"/>
+      <stop offset="50%" stop-color="#d1a961"/>
+      <stop offset="75%" stop-color="#f7e7b4"/>
+      <stop offset="100%" stop-color="#a37f3d"/>
+    </linearGradient>
+
+    <linearGradient id="smokeLens" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#323136"/>
+      <stop offset="40%" stop-color="#242327"/>
+      <stop offset="100%" stop-color="#141416"/>
+    </linearGradient>
+
+    <linearGradient id="lensHighlight" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.12"/>
+      <stop offset="30%" stop-color="#ffffff" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="none"/>
+
+  <g transform="translate(0, 10)">
+    <path d="M 120 220 C 180 230, 210 260, 240 290" fill="none" stroke="#6b5329" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+    <path d="M 680 220 C 620 230, 590 260, 560 290" fill="none" stroke="#6b5329" stroke-width="2" stroke-linecap="round" opacity="0.8"/>
+
+    <path d="M 374 216 C 388 208, 412 208, 426 216" fill="none" stroke="url(#goldWire)" stroke-width="3.5" stroke-linecap="round"/>
+
+    <g id="leftLens">
+      <path d="
+        M 160 170 
+        C 230 168, 310 168, 360 180
+        C 376 184, 376 200, 374 230
+        C 370 290, 360 324, 330 334
+        C 280 344, 180 344, 130 330
+        C 106 324, 104 290, 106 230
+        C 108 190, 114 172, 160 170 Z" 
+        fill="url(#smokeLens)"
+      />
+      <path d="
+        M 160 170 
+        C 230 168, 310 168, 360 180
+        C 376 184, 376 200, 374 230
+        C 370 290, 360 324, 330 334
+        C 280 344, 180 344, 130 330
+        C 106 324, 104 290, 106 230
+        C 108 190, 114 172, 160 170 Z" 
+        fill="url(#lensHighlight)"
+      />
+      <path d="
+        M 160 170 
+        C 230 168, 310 168, 360 180
+        C 376 184, 376 200, 374 230
+        C 370 290, 360 324, 330 334
+        C 280 344, 180 344, 130 330
+        C 106 324, 104 290, 106 230
+        C 108 190, 114 172, 160 170 Z" 
+        fill="none" 
+        stroke="url(#goldWire)" 
+        stroke-width="3"
+      />
+    </g>
+
+    <g id="rightLens">
+      <path d="
+        M 640 170 
+        C 570 168, 490 168, 440 180
+        C 424 184, 424 200, 426 230
+        C 430 290, 440 324, 470 334
+        C 520 344, 620 344, 670 330
+        C 694 324, 696 290, 694 230
+        C 692 190, 686 172, 640 170 Z" 
+        fill="url(#smokeLens)"
+      />
+      <path d="
+        M 640 170 
+        C 570 168, 490 168, 440 180
+        C 424 184, 424 200, 426 230
+        C 430 290, 440 324, 470 334
+        C 520 344, 620 344, 670 330
+        C 694 324, 696 290, 694 230
+        C 692 190, 686 172, 640 170 Z" 
+        fill="url(#lensHighlight)"
+      />
+      <path d="
+        M 640 170 
+        C 570 168, 490 168, 440 180
+        C 424 184, 424 200, 426 230
+        C 430 290, 440 324, 470 334
+        C 520 344, 620 344, 670 330
+        C 694 324, 696 290, 694 230
+        C 692 190, 686 172, 640 170 Z" 
+        fill="none" 
+        stroke="url(#goldWire)" 
+        stroke-width="3"
+      />
+    </g>
+
+    <path d="M 364 246 C 360 246, 356 254, 358 264 C 360 272, 366 274, 368 266 Z" fill="#ffffff" fill-opacity="0.35" stroke="url(#goldWire)" stroke-width="1"/>
+    <path d="M 436 246 C 440 246, 444 254, 442 264 C 440 272, 434 274, 432 266 Z" fill="#ffffff" fill-opacity="0.35" stroke="url(#goldWire)" stroke-width="1"/>
+
+    <path d="M 105 220 L 76 220 M 76 216 L 76 224" fill="none" stroke="url(#goldWire)" stroke-width="3" stroke-linecap="square"/>
+    <path d="M 695 220 L 724 220 M 724 216 L 724 224" fill="none" stroke="url(#goldWire)" stroke-width="3" stroke-linecap="square"/>
+  </g>
+</svg>

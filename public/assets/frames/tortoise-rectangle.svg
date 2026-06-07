@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="tortoiseAmber" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff7a38" stop-opacity="0.85"/>
+      <stop offset="40%" stop-color="#e05316" stop-opacity="0.9"/>
+      <stop offset="75%" stop-color="#ad3300" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#ff924e" stop-opacity="0.8"/>
+    </linearGradient>
+
+    <linearGradient id="chainGold" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#e0b034"/>
+      <stop offset="30%" stop-color="#fff2a3"/>
+      <stop offset="65%" stop-color="#c99418"/>
+      <stop offset="100%" stop-color="#946703"/>
+    </linearGradient>
+
+    <linearGradient id="lensReflect" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="35%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="none"/>
+
+  <g transform="translate(0, 15)">
+    <path d="M 145 208 C 115 224, 90 244, 78 258 C 74 262, 80 268, 86 262 C 100 246, 122 226, 150 212 Z" fill="#9e3b0b" opacity="0.9"/>
+    <path d="M 655 208 C 685 224, 710 244, 722 258 C 726 262, 720 268, 714 262 C 700 246, 678 226, 650 212 Z" fill="#9e3b0b" opacity="0.9"/>
+
+    <path d="
+      M 165 150 
+      L 355 162
+      C 370 163, 382 178, 400 178
+      C 418 178, 430 163, 445 162
+      L 635 150
+      C 685 148, 705 170, 705 215
+      C 705 262, 680 286, 625 286
+      L 452 278
+      C 436 277, 420 244, 400 244
+      C 380 244, 364 277, 348 278
+      L 175 286
+      C 120 286, 95 262, 95 215
+      C 95 170, 115 148, 165 150 Z" 
+      fill="url(#tortoiseAmber)" 
+      stroke="#6b1d00" 
+      stroke-width="1.5"
+    />
+
+    <path d="
+      M 167 154 L 353 165 C 370 166, 380 182, 400 182 C 420 182, 430 166, 447 165 L 633 154 C 678 152, 697 172, 697 215 C 697 256, 674 278, 623 278 L 450 270 C 434 269, 418 240, 400 240 C 382 240, 366 269, 350 270 L 177 278 C 126 278, 103 256, 103 215 C 103 172, 122 154, 167 154 Z" 
+      fill="none" stroke="#ffb48a" stroke-width="1" opacity="0.4"
+    />
+
+    <g id="leftEye">
+      <path d="
+        M 175 174 
+        L 335 182
+        C 346 183, 350 192, 348 210
+        L 338 252
+        C 336 264, 324 266, 310 266
+        L 170 270
+        C 150 270, 136 260, 136 242
+        L 142 196
+        C 142 180, 154 174, 175 174 Z" 
+        fill="#ffffff" fill-opacity="0.12"
+      />
+      <path d="M 175 174 L 335 182 C 346 183, 350 192, 348 210 L 338 252 C 336 264, 324 266, 310 266 L 170 270 C 150 270, 136 260, 136 242 L 142 196 C 142 180, 154 174, 175 174 Z" fill="url(#lensReflect)"/>
+    </g>
+
+    <g id="rightEye">
+      <path d="
+        M 625 174 
+        L 465 182
+        C 454 183, 450 192, 452 210
+        L 462 252
+        C 464 264, 476 266, 490 266
+        L 630 270
+        C 650 270, 664 260, 664 242
+        L 658 196
+        C 658 180, 646 174, 625 174 Z" 
+        fill="#ffffff" fill-opacity="0.12"
+      />
+      <path d="M 625 174 L 465 182 C 454 183, 450 192, 452 210 L 462 252 C 464 264, 476 266, 490 266 L 630 270 C 650 270, 664 260, 664 242 L 658 196 C 658 180, 646 174, 625 174 Z" fill="url(#lensReflect)"/>
+    </g>
+
+    <circle cx="116" cy="172" r="3" fill="url(#chainGold)"/>
+    <circle cx="116" cy="182" r="3" fill="url(#chainGold)"/>
+    <circle cx="684" cy="172" r="3" fill="url(#chainGold)"/>
+    <circle cx="684" cy="182" r="3" fill="url(#chainGold)"/>
+
+    <g id="decorativeChain" stroke="url(#chainGold)" stroke-width="2.5" fill="none">
+      <path d="M 116 190 Q 150 240, 240 242" />
+      <path d="M 150 240 Q 230 300, 345 230" />
+      
+      <path d="M 345 220 Q 400 270, 455 220" />
+      
+      <path d="M 684 190 Q 650 240, 560 242" />
+      <path d="M 650 240 Q 570 300, 455 230" />
+      
+      <g stroke-dasharray="6,8">
+        <path d="M 116 190 Q 150 240, 240 242" />
+        <path d="M 150 240 Q 230 300, 345 230" />
+        <path d="M 345 220 Q 400 270, 455 220" />
+        <path d="M 684 190 Q 650 240, 560 242" />
+        <path d="M 650 240 Q 570 300, 455 230" />
+      </g>
+    </g>
+  </g>
+</svg>

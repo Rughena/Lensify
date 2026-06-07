@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" height="100%">
+  <defs>
+    <linearGradient id="crystalClearAcetate" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="30%" stop-color="#eef2f5" stop-opacity="0.3"/>
+      <stop offset="70%" stop-color="#dce3e8" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.7"/>
+    </linearGradient>
+
+    <linearGradient id="gunmetalWire" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5a5d64"/>
+      <stop offset="50%" stop-color="#9ea2aa"/>
+      <stop offset="100%" stop-color="#383a3f"/>
+    </linearGradient>
+
+    <linearGradient id="rimHighlight" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.1"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="none"/>
+
+  <g transform="translate(0, 15)">
+    
+    <path d="M 120 162 Q 70 152, 35 178 M 35 178 Q 30 182, 32 186" fill="none" stroke="url(#gunmetalWire)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 680 162 Q 730 152, 765 178 M 765 178 Q 770 182, 768 186" fill="none" stroke="url(#gunmetalWire)" stroke-width="2" stroke-linecap="round"/>
+
+    <path d="M 366 172 H 434" fill="none" stroke="url(#gunmetalWire)" stroke-width="2.5"/>
+
+    <path d="
+      M 400,178 
+      C 384,178 374,166 354,162
+      C 328,145 285,130 235,130
+      C 165,130 120,165 120,215
+      C 120,268 168,305, 232,305
+      C 290,305 332,275 352,238
+      C 358,220 366,212 376,212
+      H 424
+      C 434,212 442,220 448,238
+      C 468,275 510,305 568,305
+      C 632,305 680,268 680,215
+      C 680,165 635,130 565,130
+      C 515,130 472,145 446,162
+      C 426,166 416,178 400,178 Z" 
+      fill="url(#crystalClearAcetate)" 
+      stroke="#d0d7de" 
+      stroke-width="1"
+    />
+
+    <path d="
+      M 132,185 C 130,152 178,134 235,134 C 292,134 340,152 344,185
+      M 668,185 C 670,152 622,134 565,134 C 508,134 460,152 456,185" 
+      fill="none" stroke="url(#rimHighlight)" stroke-width="2" opacity="0.6"
+    />
+
+    <g id="leftEyeAperture">
+      <path d="
+        M 342,185 
+        C 338,154 296,142 235,142
+        C 174,142 134,154 134,185
+        C 134,252 176,293 235,293
+        C 296,293 338,252 342,185 Z" 
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="1.2" 
+        opacity="0.4"
+      />
+      <line x1="165" y1="160" x2="215" y2="210" stroke="#ffffff" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+      <line x1="180" y1="160" x2="205" y2="185" stroke="#ffffff" stroke-width="1" opacity="0.2" stroke-linecap="round"/>
+    </g>
+
+    <g id="rightEyeAperture">
+      <path d="
+        M 458,185 
+        C 462,154 504,142 565,142
+        C 626,142 666,154 666,185
+        C 666,252 626,293 565,293
+        C 504,293 462,252 458,185 Z" 
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-width="1.2" 
+        opacity="0.4"
+      />
+      <line x1="635" y1="160" x2="585" y2="210" stroke="#ffffff" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+      <line x1="620" y1="160" x2="595" y2="185" stroke="#ffffff" stroke-width="1" opacity="0.2" stroke-linecap="round"/>
+    </g>
+
+    <circle cx="127" cy="162" r="2" fill="url(#gunmetalWire)"/>
+    <circle cx="673" cy="162" r="2" fill="url(#gunmetalWire)"/>
+
+    <path d="M 338,218 C 334,230 326,240 318,246" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+    <path d="M 462,218 C 466,230 474,240 482,246" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.5" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- Steampunk Polished Yellow Gold Gradient -->
+    <linearGradient id="steampunkGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffd97d"/>
+      <stop offset="30%" stop-color="#fff5d1"/>
+      <stop offset="60%" stop-color="#e0a928"/>
+      <stop offset="100%" stop-color="#8c6200"/>
+    </linearGradient>
+
+    <!-- Side Shield Textured Deep Gold Gradient -->
+    <linearGradient id="shieldGold" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b08111"/>
+      <stop offset="50%" stop-color="#e6b743"/>
+      <stop offset="100%" stop-color="#694a03"/>
+    </linearGradient>
+
+    <!-- Iridescent Blue-To-Green Mirror Lens Gradient -->
+    <linearGradient id="iridescentMirror" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#56147d"/>
+      <stop offset="30%" stop-color="#1d2ca3"/>
+      <stop offset="70%" stop-color="#1c94a4"/>
+      <stop offset="100%" stop-color="#5df09e"/>
+    </linearGradient>
+
+    <!-- Sleek Diagonal Studio Light Glare -->
+    <linearGradient id="studioGlare" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/>
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background (Optional/Transparent) -->
+  <rect width="100%" height="100%" fill="none"/>
+
+  <g transform="translate(0, 10)">
+    <!-- BACKGROUND TEMPLES (With Matte Black Ear Socks) -->
+    <path d="M 120 220 C 150 215, 180 235, 200 260" fill="none" stroke="url(#steampunkGold)" stroke-width="3"/>
+    <path d="M 100 224 C 80 228, 65 240, 55 255" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/>
+
+    <path d="M 680 220 C 650 215, 620 235, 600 260" fill="none" stroke="url(#steampunkGold)" stroke-width="3"/>
+    <path d="M 700 224 C 720 228, 735 240, 745 255" fill="none" stroke="#1a1a1a" stroke-width="5.5" stroke-linecap="round"/>
+
+    <!-- HIGH ARCHED SADDLE BRIDGE -->
+    <path d="M 368 215 C 382 198, 418 198, 432 215" fill="none" stroke="url(#steampunkGold)" stroke-width="4.5" stroke-linecap="round"/>
+
+    <!-- LEFT ROUND EYE PIECE & SIDE SHIELD -->
+    <g id="leftEyeAssembly">
+      <!-- Mesh/Flared Metal Side Shield -->
+      <path d="M 136 220 C 130 170, 155 142, 180 148 C 160 170, 154 200, 158 230 Z" fill="url(#shieldGold)" stroke="#523900" stroke-width="0.5"/>
+      <!-- Outer Solid Rim Profile -->
+      <circle cx="255" cy="220" r="74" fill="url(#steampunkGold)"/>
+      <!-- Circular Iridescent Lens -->
+      <circle cx="255" cy="220" r="69" fill="url(#iridescentMirror)"/>
+      <!-- Lens Glare Reflection Overlay -->
+      <circle cx="255" cy="220" r="69" fill="url(#studioGlare)"/>
+    </g>
+
+    <!-- RIGHT ROUND EYE PIECE & SIDE SHIELD -->
+    <g id="rightEyeAssembly">
+      <!-- Mesh/Flared Metal Side Shield (Mirrored) -->
+      <path d="M 664 220 C 670 170, 645 142, 620 148 C 640 170, 646 200, 642 230 Z" fill="url(#shieldGold)" stroke="#523900" stroke-width="0.5"/>
+      <!-- Outer Solid Rim Profile -->
+      <circle cx="545" cy="220" r="74" fill="url(#steampunkGold)"/>
+      <!-- Circular Iridescent Lens -->
+      <circle cx="545" cy="220" r="69" fill="url(#iridescentMirror)"/>
+      <!-- Lens Glare Reflection Overlay -->
+      <circle cx="545" cy="220" r="69" fill="url(#studioGlare)"/>
+    </g>
+
+    <!-- ROBUST MECHANICAL HINGES & INDUSTRIAL ACCENTS -->
+    <!-- Left Hinge block & ornamental screw head -->
+    <rect x="168" y="213" width="14" height="14" rx="2" fill="url(#steampunkGold)" stroke="#694a03" stroke-width="0.5"/>
+    <circle cx="175" cy="220" r="3" fill="#ffffff" opacity="0.4"/>
+    <!-- Right Hinge block & ornamental screw head -->
+    <rect x="618" y="213" width="14" height="14" rx="2" fill="url(#steampunkGold)" stroke="#694a03" stroke-width="0.5"/>
+    <circle cx="625" cy="220" r="3" fill="#ffffff" opacity="0.4"/>
+
+    <!-- ADJUSTABLE WIRE NOSE PADS WITH CLEAR INSERTS -->
+    <path d="M 360 232 C 354 235, 348 245, 350 252" fill="none" stroke="url(#steampunkGold)" stroke-width="2"/>
+    <ellipse cx="350" cy="250" rx="3.5" ry="6" fill="#ffffff" fill-opacity="0.6"/>
+    
+    <path d="M 440 232 C 446 235, 452 245, 450 252" fill="none" stroke="url(#steampunkGold)" stroke-width="2"/>
+    <ellipse cx="450" cy="250" rx="3.5" ry="6" fill="#ffffff" fill-opacity="0.6"/>
+  </g>
+</svg>

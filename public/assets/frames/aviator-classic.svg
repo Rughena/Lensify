@@ -1,0 +1,135 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <!-- 18K Polished Classic Gold Metallic Gradient -->
+    <linearGradient id="classicGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#cfad60"/>
+      <stop offset="30%" stop-color="#fceeac"/>
+      <stop offset="50%" stop-color="#ddbc70"/>
+      <stop offset="85%" stop-color="#fff8d4"/>
+      <stop offset="100%" stop-color="#b08d3e"/>
+    </linearGradient>
+
+    <!-- G-15 Aviator Dark Green Tint Gradient -->
+    <linearGradient id="g15GreenTint" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#22332b"/>
+      <stop offset="60%" stop-color="#192820"/>
+      <stop offset="100%" stop-color="#0f1814"/>
+    </linearGradient>
+
+    <!-- Linear Softbox Glare Curve -->
+    <linearGradient id="lensReflect" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.3"/>
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Translucent Ear Sleeve Base -->
+    <linearGradient id="earSleeve" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#473d31"/>
+      <stop offset="100%" stop-color="#211b14"/>
+    </linearGradient>
+  </defs>
+
+  <!-- BACKGROUND RECT (Transparent for UI overlays) -->
+  <rect width="100%" height="100%" fill="none"/>
+
+  <!-- MAIN STRUCTURE CONTAINER -->
+  <g transform="translate(0, 40)">
+    
+    <!-- BACKGROUND METAL TEMPLES & ACETATE EAR SLEEVES -->
+    <!-- Left Internal Temple Arm Profile -->
+    <g id="leftArmBackground" opacity="0.85">
+      <path d="M 175,190 Q 215,220 235,275 Q 242,292 238,295 C 234,298 228,290 222,275 Q 205,235 168,200 Z" fill="url(#earSleeve)" stroke="#1a140e" stroke-width="0.5"/>
+      <path d="M 160,190 L 175,193" fill="none" stroke="url(#classicGold)" stroke-width="2.5"/>
+    </g>
+    <!-- Right Internal Temple Arm Profile -->
+    <g id="rightArmBackground" opacity="0.85">
+      <path d="M 625,190 Q 585,220 565,275 Q 558,292 562,295 C 566,298 572,290 578,275 Q 595,235 632,200 Z" fill="url(#earSleeve)" stroke="#1a140e" stroke-width="0.5"/>
+      <path d="M 640,190 L 625,193" fill="none" stroke="url(#classicGold)" stroke-width="2.5"/>
+    </g>
+
+    <!-- RIGID DOUBLE METAL BROW BRIDGES -->
+    <!-- Top Swept Sweatbar Line -->
+    <path d="M 315,138 H 485" fill="none" stroke="url(#classicGold)" stroke-width="4.5" stroke-linecap="round"/>
+    <!-- Bottom Arch Nose Bridge Connector -->
+    <path d="M 370,165 C 385,155 415,155 430,165" fill="none" stroke="url(#classicGold)" stroke-width="3.5"/>
+
+    <!-- LEFT TEARDROP EYEWIRE & LENS SYSTEM -->
+    <g id="leftEyeAssembly">
+      <!-- Outer Metal Lens Border -->
+      <path d="
+        M 370,165 
+        C 355,140 260,132 205,150 
+        C 165,162 152,195 154,222 
+        C 158,265 190,320 245,320 
+        C 310,320 365,260 370,198 
+        Z" 
+        fill="none" 
+        stroke="url(#classicGold)" 
+        stroke-width="4"
+        stroke-linejoin="round"
+      />
+      <!-- G-15 Mineral Glass Shield -->
+      <path d="M 370,165 C 355,140 260,132 205,150 C 165,162 152,195 154,222 C 158,265 190,320 245,320 C 310,320 365,260 370,198 Z" fill="url(#g15GreenTint)"/>
+      
+      <!-- Vector Bokeh Reflection Clusters (Simulating Scene Depth) -->
+      <g opacity="0.15">
+        <circle cx="210" cy="210" r="16" fill="#ffffff"/>
+        <circle cx="235" cy="200" r="22" fill="#ffeeb3"/>
+        <circle cx="265" cy="215" r="14" fill="#ffffff"/>
+        <circle cx="190" cy="230" r="12" fill="#b3ffd9"/>
+      </g>
+      
+      <!-- Linear Glare Cover Layer -->
+      <path d="M 370,165 C 355,140 260,132 205,150 C 165,162 152,195 154,222 C 158,265 190,320 245,320 C 310,320 365,260 370,198 Z" fill="url(#lensReflect)"/>
+      <!-- Soft Light Slash Rim Mark -->
+      <path d="M 175,170 Q 260,145 350,190" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.3"/>
+      
+      <!-- Vintage Script Calligraphy Signature -->
+      <text x="185" y="180" font-family="Georgia, serif" font-size="11" font-weight="bold" font-style="italic" fill="#ffffff" opacity="0.75" transform="rotate(-11, 185, 180)">Ray-Ban</text>
+    </g>
+
+    <!-- RIGHT TEARDROP EYEWIRE & LENS SYSTEM -->
+    <g id="rightEyeAssembly">
+      <!-- Outer Metal Lens Border -->
+      <path d="
+        M 430,165 
+        C 445,140 540,132 595,150 
+        C 635,162 648,195 646,222 
+        C 642,265 610,320 555,320 
+        C 490,320 435,260 430,198 
+        Z" 
+        fill="none" 
+        stroke="url(#classicGold)" 
+        stroke-width="4"
+        stroke-linejoin="round"
+      />
+      <!-- G-15 Mineral Glass Shield -->
+      <path d="M 430,165 C 445,140 540,132 595,150 C 635,162 648,195 646,222 C 642,265 610,320 555,320 C 490,320 435,260 430,198 Z" fill="url(#g15GreenTint)"/>
+      
+      <!-- Vector Bokeh Reflection Clusters -->
+      <g opacity="0.15">
+        <circle cx="590" cy="210" r="16" fill="#ffffff"/>
+        <circle cx="565" cy="200" r="22" fill="#ffeeb3"/>
+        <circle cx="535" cy="215" r="14" fill="#ffffff"/>
+        <circle cx="610" cy="230" r="12" fill="#b3ffd9"/>
+      </g>
+      
+      <!-- Linear Glare Cover Layer -->
+      <path d="M 430,165 C 445,140 540,132 595,150 C 635,162 648,195 646,222 C 642,265 610,320 555,320 C 490,320 435,260 430,198 Z" fill="url(#lensReflect)"/>
+      <!-- Soft Light Slash Rim Mark -->
+      <path d="M 625,170 Q 540,145 450,190" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.3"/>
+    </g>
+
+    <!-- EXTERIOR HINGE BOX COUPLINGS & NOSE STRUT EXTENSIONS -->
+    <!-- Left Structural Connectors -->
+    <path d="M 154,204 H 132" fill="none" stroke="url(#classicGold)" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 358,210 Q 366,220 360,235" fill="none" stroke="url(#classicGold)" stroke-width="1.5"/>
+    <ellipse cx="357" cy="240" rx="3.5" ry="7" fill="#fcf6e8" stroke="#cfad60" stroke-width="0.5" opacity="0.85"/>
+
+    <!-- Right Structural Connectors -->
+    <path d="M 646,204 H 668" fill="none" stroke="url(#classicGold)" stroke-width="4.5" stroke-linecap="round"/>
+    <path d="M 442,210 Q 434,220 440,235" fill="none" stroke="url(#classicGold)" stroke-width="1.5"/>
+    <ellipse cx="443" cy="240" rx="3.5" ry="7" fill="#fcf6e8" stroke="#cfad60" stroke-width="0.5" opacity="0.85"/>
+  </g>
+</svg>

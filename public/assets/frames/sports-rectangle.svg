@@ -1,0 +1,116 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 380" width="100%" height="100%">
+  <defs>
+    <!-- Premium Matte Black Polycarbonate Texture -->
+    <linearGradient id="matteBlack" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d2f33"/>
+      <stop offset="100%" stop-color="#151618"/>
+    </linearGradient>
+
+    <!-- High-Octane Fire Mirror Iridium Lens Gradient -->
+    <linearGradient id="fireMirror" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#006653"/> <!-- Greenish edge wrap reflection -->
+      <stop offset="15%" stop-color="#b82e00"/> <!-- Deep orange-red shift -->
+      <stop offset="50%" stop-color="#ff1a1a"/> <!-- Central high-intensity hot red -->
+      <stop offset="85%" stop-color="#ff9400"/> <!-- Gold transition zone -->
+      <stop offset="100%" stop-color="#e6c300"/> <!-- Pure yellow-gold wing wing -->
+    </linearGradient>
+
+    <!-- Linear Visor Glare to Simulate Cylindrical Curvature -->
+    <linearGradient id="visorGlare" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/>
+      <stop offset="20%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="75%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Deep Mechanical Shading for Lens Cutouts -->
+    <linearGradient id="shadowTint" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#000000" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- BACKGROUND RECT (Transparent for Overlay Testing) -->
+  <rect width="100%" height="100%" fill="none"/>
+
+  <!-- MAIN PERFORMANCE VISOR GROUP -->
+  <g transform="translate(0, 15)">
+    
+    <!-- HIGH-SPEED CONTINUOUS PERFORMANCE SHIELD LENS -->
+    <!-- Single-body geometric wrap visor with angular low-wings and an aggressive angular nose cutout -->
+    <g id="shieldLens">
+      <path d="
+        M 105,145 
+        L 220,132 
+        C 290,122 510,122 580,132 
+        L 695,145
+        L 685,248
+        L 645,282
+        C 620,295 570,305 530,305
+        L 505,232
+        L 435,215
+        C 415,210 385,210 365,215
+        L 295,232
+        L 270,305
+        C 230,305 180,295 155,282
+        L 115,248 Z" 
+        fill="url(#fireMirror)"
+      />
+      <!-- Cylindrical Surface Glare Coating -->
+      <path d="M 105,145 L 220,132 C 290,122 510,122 580,132 L 695,145 L 685,248 L 645,282 C 620,295 570,305 530,305 L 505,232 L 435,215 C 415,210 385,210 365,215 L 295,232 L 270,305 C 230,305 180,295 155,282 L 115,248 Z" fill="url(#visorGlare)"/>
+      <!-- Deep Inner Edge Visor Horizon Shadow -->
+      <path d="M 105,145 L 220,132 C 290,122 510,122 580,132 L 695,145 L 688,185 C 600,165 200,165 112,185 Z" fill="url(#shadowTint)"/>
+    </g>
+
+    <!-- MATTE BLACK TOP BROW CHASSIS -->
+    <!-- Follows the top slope of the lens perfectly to provide industrial structural reinforcement -->
+    <path d="
+      M 95,146 
+      L 220,130 
+      C 290,120 510,120 580,130 
+      L 705,146
+      L 702,156
+      L 582,141
+      C 512,131 288,131 218,141
+      L 98,156 Z" 
+      fill="url(#matteBlack)" 
+      stroke="#101112" 
+      stroke-width="1"
+    />
+
+    <!-- CHISELED SPORTS TEMPLES WITH INTEGRATED VENTILATION HOLES -->
+    <!-- Left Stem Assembly -->
+    <g id="leftSportTemple">
+      <path d="M 98,146 L 25,152 C 15,153 15,163 25,166 L 98,156 Z" fill="url(#matteBlack)"/>
+      <!-- Aerodynamic Vent Cutout -->
+      <polygon points="45,153 80,152 75,159 48,159" fill="#151618" opacity="0.6"/>
+    </g>
+    <!-- Right Stem Assembly -->
+    <g id="rightSportTemple">
+      <path d="M 702,146 L 775,152 C 785,153 785,163 775,166 L 702,156 Z" fill="url(#matteBlack)"/>
+      <!-- Aerodynamic Vent Cutout -->
+      <polygon points="755,153 720,152 725,159 752,159" fill="#151618" opacity="0.6"/>
+    </g>
+
+    <!-- CLIP-ON REINFORCED RUBBER NOSE GRIP -->
+    <!-- Rigid angular frame element resting securely within the visor lens center -->
+    <path d="
+      M 365,215 
+      L 390,162 
+      H 410 
+      L 435,215 
+      L 423,222 
+      L 407,180 
+      H 393 
+      L 377,222 Z" 
+      fill="#1d1f22" 
+      stroke="#0f1012" 
+      stroke-width="1.5" 
+      stroke-linejoin="miter"
+    />
+    
+    <!-- Subtle 3D Edge Bevel Highlights on Frame Brow -->
+    <path d="M 220,132 C 290,122 510,122 580,132" fill="none" stroke="#52575e" stroke-width="1" opacity="0.4"/>
+  </g>
+</svg>

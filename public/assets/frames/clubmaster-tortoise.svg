@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="tortoiseBrow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3c2212"/>
+      <stop offset="25%" stop-color="#1c0f08"/>
+      <stop offset="50%" stop-color="#5c3a21"/>
+      <stop offset="75%" stop-color="#120a05"/>
+      <stop offset="100%" stop-color="#2b180c"/>
+    </linearGradient>
+
+    <linearGradient id="clubmasterGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d4af37"/>
+      <stop offset="40%" stop-color="#fff3a8"/>
+      <stop offset="70%" stop-color="#aa820a"/>
+      <stop offset="100%" stop-color="#6e5300"/>
+    </linearGradient>
+
+    <linearGradient id="lensReflect" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="30%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="none"/>
+
+  <g transform="translate(0, 20)">
+    <path d="M 145 200 C 115 212, 90 232, 78 245 C 74 249, 80 255, 86 249 C 100 235, 122 218, 150 205 Z" fill="#1c0f08"/>
+    <path d="M 655 200 C 685 212, 710 232, 722 245 C 726 249, 720 255, 714 249 C 700 235, 678 218, 650 205 Z" fill="#1c0f08"/>
+
+    <path d="M 372 201 C 385 194, 415 194, 428 201" fill="none" stroke="url(#clubmasterGold)" stroke-width="4.5" stroke-linecap="round"/>
+
+    <g id="leftEye">
+      <path d="M 152 190 C 152 190, 240 200, 356 190 C 356 245, 335 290, 260 290 C 185 290, 152 245, 152 190 Z" fill="#ffffff" fill-opacity="0.1"/>
+      <path d="M 152 190 C 152 190, 240 200, 356 190 C 356 245, 335 290, 260 290 C 185 290, 152 245, 152 190 Z" fill="url(#lensReflect)"/>
+      
+      <path d="M 152 190 C 152 245, 185 290, 260 290 C 335 290, 356 245, 356 190" fill="none" stroke="url(#clubmasterGold)" stroke-width="3" stroke-linecap="round"/>
+      
+      <path d="
+        M 136 180 
+        C 185 146, 285 158, 364 186
+        C 368 188, 364 198, 356 198
+        C 285 184, 185 174, 144 194
+        C 138 197, 134 192, 136 180 Z" 
+        fill="url(#tortoiseBrow)" 
+        stroke="#120a05" 
+        stroke-width="1"
+      />
+      <path d="M 180 165 Q 210 160, 240 168" fill="none" stroke="#cf8a2c" stroke-width="3" opacity="0.25" stroke-linecap="round"/>
+      <path d="M 290 170 Q 320 172, 345 182" fill="none" stroke="#cf8a2c" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+    </g>
+
+    <g id="rightEye">
+      <path d="M 648 190 C 648 190, 560 200, 444 190 C 444 245, 465 290, 540 290 C 615 290, 648 245, 648 190 Z" fill="#ffffff" fill-opacity="0.1"/>
+      <path d="M 648 190 C 648 190, 560 200, 444 190 C 444 245, 465 290, 540 290 C 615 290, 648 245, 648 190 Z" fill="url(#lensReflect)"/>
+      
+      <path d="M 648 190 C 648 245, 615 290, 540 290 C 465 290, 444 245, 444 190" fill="none" stroke="url(#clubmasterGold)" stroke-width="3" stroke-linecap="round"/>
+      
+      <path d="
+        M 664 180 
+        C 615 146, 515 158, 436 186
+        C 432 188, 436 198, 444 198
+        C 515 184, 615 174, 656 194
+        C 662 197, 666 192, 664 180 Z" 
+        fill="url(#tortoiseBrow)" 
+        stroke="#120a05" 
+        stroke-width="1"
+      />
+      <path d="M 620 165 Q 590 160, 560 168" fill="none" stroke="#cf8a2c" stroke-width="3" opacity="0.25" stroke-linecap="round"/>
+      <path d="M 510 170 Q 480 172, 455 182" fill="none" stroke="#cf8a2c" stroke-width="2" opacity="0.3" stroke-linecap="round"/>
+    </g>
+
+    <path d="M 150 174 Q 154 174, 156 176" fill="none" stroke="url(#clubmasterGold)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 650 174 Q 646 174, 644 176" fill="none" stroke="url(#clubmasterGold)" stroke-width="2" stroke-linecap="round"/>
+
+    <ellipse cx="363" cy="226" rx="4" ry="7" fill="#ffffff" fill-opacity="0.5" stroke="url(#clubmasterGold)" stroke-width="1" transform="rotate(-15, 363, 226)"/>
+    <ellipse cx="437" cy="226" rx="4" ry="7" fill="#ffffff" fill-opacity="0.5" stroke="url(#clubmasterGold)" stroke-width="1" transform="rotate(15, 437, 226)"/>
+  </g>
+</svg>

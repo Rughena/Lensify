@@ -1,0 +1,112 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" height="100%">
+  <defs>
+    <!-- Translucent Wine-Tinted Brown Crystal Acetate Gradient -->
+    <linearGradient id="crystalHexBrown" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#912f46" stop-opacity="0.95"/>
+      <stop offset="40%" stop-color="#6b1d2f" stop-opacity="0.98"/>
+      <stop offset="80%" stop-color="#4a121e" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#7a2437" stop-opacity="0.9"/>
+    </linearGradient>
+
+    <!-- Edge Specular Highlight Rim to give the Crystal Plastic its 3D depth -->
+    <linearGradient id="crystalHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.5"/>
+      <stop offset="30%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="70%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- BACKGROUND RECT (Transparent) -->
+  <rect width="100%" height="100%" fill="none"/>
+
+  <!-- MAIN EYEWEAR CHASSIS GROUP -->
+  <g transform="translate(0, 15)">
+    
+    <!-- TRANSLUCENT ACETATE TEMPLES (EXTENDING BACKWARD) -->
+    <path d="M 140 165 C 105 172, 70 190, 45 210 C 40 215, 48 222, 54 216 C 75 198, 108 182, 142 177 Z" fill="#541421" opacity="0.85"/>
+    <path d="M 660 165 C 695 172, 730 190, 755 210 C 760 215, 752 222, 746 216 C 725 198, 692 182, 658 177 Z" fill="#541421" opacity="0.85"/>
+
+    <!-- UNIFIED HEXAGONAL CHASSIS PATH -->
+    <!-- Engineered as a singular fluid unit to maintain perfect eyewear structural balance -->
+    <path d="
+      M 400,182 
+      C 382,182 372,170 354,166
+      L 316,132
+      C 305,122 290,122 275,122
+      H 195
+      C 180,122 165,122 154,132
+      L 116,166
+      C 106,175 106,190 110,205
+      L 126,254
+      C 132,272 148,288 166,294
+      L 205,308
+      C 220,314 235,314 250,308
+      L 289,294
+      C 307,288 323,272 329,254
+      L 340,222
+      C 346,204 354,196 368,196
+      H 432
+      C 446,196 454,204 460,222
+      L 471,254
+      C 477,272 493,288 511,294
+      L 550,308
+      C 565,314 580,314 595,308
+      L 634,294
+      C 652,288 668,272 674,254
+      L 690,205
+      C 694,190 694,175 684,166
+      L 646,132
+      C 635,122 620,122 605,122
+      H 525
+      C 510,122 495,122 484,132
+      L 446,166
+      C 428,170 418,182 400,182 Z" 
+      fill="url(#crystalHexBrown)" 
+      stroke="#3b0a14" 
+      stroke-width="1.5" 
+      stroke-linejoin="round"
+    />
+
+    <!-- CRISTAL PLASTIC 3D BEVEL HIGHLIGHT -->
+    <path d="
+      M 152,129 L 114,163 C 105,171 105,184 109,198 M 195,120 H 275 M 605,120 H 525
+      M 648,129 L 686,163 C 695,171 695,184 691,198"
+      fill="none" stroke="url(#crystalHighlight)" stroke-width="2" opacity="0.5" stroke-linecap="round"
+    />
+
+    <!-- LEFT HEXAGONAL EYE APERTURE (COMPLETELY TRANSPARENT OPTICAL LENS) -->
+    <g id="leftHexAperture">
+      <!-- Lens base has no fill color, rendering it 100% transparent -->
+      <polygon points="192,134 278,134 314,166 318,246 284,284 196,296 138,246 138,166" 
+               fill="none" 
+               stroke="#ffffff" 
+               stroke-width="1.5" 
+               stroke-linejoin="round"
+               opacity="0.2"
+      />
+      <!-- Sharp Diagonal Studio Light Reflections -->
+      <line x1="160" y1="150" x2="210" y2="200" stroke="#ffffff" stroke-width="2" opacity="0.25" stroke-linecap="round"/>
+      <line x1="175" y1="150" x2="200" y2="175" stroke="#ffffff" stroke-width="1" opacity="0.2" stroke-linecap="round"/>
+    </g>
+
+    <!-- RIGHT HEXAGONAL EYE APERTURE (COMPLETELY TRANSPARENT OPTICAL LENS) -->
+    <g id="rightHexAperture">
+      <!-- Lens base has no fill color, rendering it 100% transparent -->
+      <polygon points="608,134 522,134 486,166 482,246 516,284 604,296 662,246 662,166" 
+               fill="none" 
+               stroke="#ffffff" 
+               stroke-width="1.5" 
+               stroke-linejoin="round"
+               opacity="0.2"
+      />
+      <!-- Sharp Diagonal Studio Light Reflections -->
+      <line x1="640" y1="150" x2="590" y2="200" stroke="#ffffff" stroke-width="2" opacity="0.25" stroke-linecap="round"/>
+      <line x1="625" y1="150" x2="600" y2="175" stroke="#ffffff" stroke-width="1" opacity="0.2" stroke-linecap="round"/>
+    </g>
+
+    <!-- INTEGRATED PLASTIC NOSE CRADLES -->
+    <path d="M 326,220 C 322,235 314,248 304,256" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.25" stroke-linecap="round"/>
+    <path d="M 474,220 C 478,235 486,248 496,256" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.25" stroke-linecap="round"/>
+  </g>
+</svg>

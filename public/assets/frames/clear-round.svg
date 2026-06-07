@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" width="100%" height="100%">
+  <defs>
+    <linearGradient id="clearRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9"/>
+      <stop offset="30%" stop-color="#eef2f5" stop-opacity="0.6"/>
+      <stop offset="70%" stop-color="#cfd8dc" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.7"/>
+    </linearGradient>
+
+    <linearGradient id="silverWire" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#b0bec5"/>
+      <stop offset="50%" stop-color="#eceff1"/>
+      <stop offset="100%" stop-color="#90a4ae"/>
+    </linearGradient>
+
+    <linearGradient id="clearLens" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="100%" height="100%" fill="none"/>
+
+  <g transform="translate(0, 15)">
+    <path d="M 152 212 C 120 220, 95 240, 85 255" fill="none" stroke="url(#silverWire)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M 648 212 C 680 220, 705 240, 715 255" fill="none" stroke="url(#silverWire)" stroke-width="2" stroke-linecap="round"/>
+
+    <path d="M 372 208 C 385 202, 415 202, 428 208" fill="none" stroke="url(#silverWire)" stroke-width="2"/>
+    <path d="M 370 208 C 385 200, 415 200, 430 208" fill="none" stroke="url(#clearRim)" stroke-width="8" stroke-linecap="round" opacity="0.8"/>
+
+    <g id="leftEye">
+      <polygon points="260,126 325,142 355,195 340,265 260,298 178,265 165,195 195,142" fill="url(#clearLens)"/>
+      
+      <polygon points="260,126 325,142 355,195 340,265 260,298 178,265 165,195 195,142" 
+               fill="none" stroke="url(#clearRim)" stroke-width="7" stroke-linejoin="round"/>
+               
+      <polygon points="260,128 323,144 352,195 338,263 260,295 180,263 168,195 197,144" 
+               fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" opacity="0.7"/>
+    </g>
+
+    <g id="rightEye">
+      <polygon points="540,126 475,142 445,195 460,265 540,298 622,265 635,195 605,142" fill="url(#clearLens)"/>
+      
+      <polygon points="540,126 475,142 445,195 460,265 540,298 622,265 635,195 605,142" 
+               fill="none" stroke="url(#clearRim)" stroke-width="7" stroke-linejoin="round"/>
+               
+      <polygon points="540,128 477,144 448,195 462,263 540,295 620,263 632,195 603,144" 
+               fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round" opacity="0.7"/>
+    </g>
+
+    <path d="M 350 225 C 356 235, 362 250, 354 260" fill="none" stroke="url(#clearRim)" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+    <path d="M 450 225 C 444 235, 438 250, 446 260" fill="none" stroke="url(#clearRim)" stroke-width="4" stroke-linecap="round" opacity="0.6"/>
+
+    <path d="M 166 195 L 146 198" fill="none" stroke="url(#silverWire)" stroke-width="3.5" stroke-linecap="round"/>
+    <path d="M 634 195 L 654 198" fill="none" stroke="url(#silverWire)" stroke-width="3.5" stroke-linecap="round"/>
+  </g>
+</svg>

@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="100%" height="100%">
+  <defs>
+    <!-- Vibrant Bubblegum Pink Acetate Gradient -->
+    <linearGradient id="bubblegumPink" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ff94da"/>
+      <stop offset="50%" stop-color="#ff54be"/>
+      <stop offset="100%" stop-color="#cc2587"/>
+    </linearGradient>
+
+    <!-- Deep Hot Pink Bow Gradient -->
+    <linearGradient id="bowPink" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff3399"/>
+      <stop offset="100%" stop-color="#990055"/>
+    </linearGradient>
+
+    <!-- Solid Dark Sunglasses Tint -->
+    <linearGradient id="lensTint" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#242424"/>
+      <stop offset="100%" stop-color="#0d0d0d"/>
+    </linearGradient>
+
+    <!-- Clean Studio Light Glare Strip -->
+    <linearGradient id="lensGlare" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="30%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- BACKGROUND RECT (Optional for transparency check) -->
+  <rect width="100%" height="100%" fill="none"/>
+
+  <!-- MAIN FRAME GROUP -->
+  <g transform="translate(0, 20)">
+    
+    <!-- LEFT & RIGHT EXTENDING ARMS (TEMPLES) -->
+    <path d="M 120 180 Q 80 185, 50 220" fill="none" stroke="#b51b75" stroke-width="10" stroke-linecap="round"/>
+    <path d="M 680 180 Q 720 185, 750 220" fill="none" stroke="#b51b75" stroke-width="10" stroke-linecap="round"/>
+
+    <!-- SOLID GEOMETRIC GLASSES CHASSIS -->
+    <!-- Modeled with explicit outer points for the cat ears, clean lower circular curves, and a straight-set nose bridge -->
+    <path d="
+      M 400,185 
+      C 375,185 365,170 340,170
+      C 270,170 210,150 145,120
+      Q 135,115 140,130
+      C 150,160 155,180 115,195
+      Q 105,200 115,210
+      C 135,230 150,275 200,295
+      C 250,315 310,305 345,265
+      C 365,240 375,220 400,220
+      C 425,220 435,240 455,265
+      C 490,305 550,305 600,295
+      C 650,275 665,230 685,210
+      Q 695,200 685,195
+      C 645,180 650,160 660,130
+      Q 665,115 655,120
+      C 590,150 530,170 460,170
+      C 435,170 425,185 400,185 Z" 
+      fill="url(#bubblegumPink)" 
+      stroke="#940f5c" 
+      stroke-width="3" 
+      stroke-linejoin="round"
+    />
+
+    <!-- LEFT PERFECTLY ROUND LENS -->
+    <g id="leftEye">
+      <circle cx="240" cy="225" r="55" fill="url(#lensTint)"/>
+      <circle cx="240" cy="225" r="55" fill="url(#lensGlare)"/>
+      <circle cx="240" cy="225" r="55" fill="none" stroke="#ffa6e3" stroke-width="2" opacity="0.4"/>
+    </g>
+
+    <!-- RIGHT PERFECTLY ROUND LENS -->
+    <g id="rightEye">
+      <circle cx="560" cy="225" r="55" fill="url(#lensTint)"/>
+      <circle cx="560" cy="225" r="55" fill="url(#lensGlare)"/>
+      <circle cx="560" cy="225" r="55" fill="none" stroke="#ffa6e3" stroke-width="2" opacity="0.4"/>
+    </g>
+
+    <!-- RE-PROPORTIONED BOW COMPONENT (Fixed to Upper Right Cat-Ear Wing Tip) -->
+    <g transform="translate(635, 140) rotate(15)">
+      <!-- Heavy Outline Silhouette -->
+      <path d="M -5,-5 C -15,-25 -35,-20 -30,0 C -35,20 -15,25 -5,5 C 5,25 25,20 20,0 C 25,-20 5,-25 -5,-5 Z" fill="#1f0213"/>
+      <!-- Left Ribbon Node -->
+      <path d="M -5,-3 C -13,-21 -31,-16 -26,0 C -31,16 -13,21 -5,3 Z" fill="url(#bowPink)" stroke="#1f0213" stroke-width="1.5"/>
+      <!-- Right Ribbon Node -->
+      <path d="M -5,-3 C 3,-21 21,-16 16,0 C 21,16 3,21 -5,3 Z" fill="url(#bowPink)" stroke="#1f0213" stroke-width="1.5"/>
+      <!-- Center Ribbon Knot Center -->
+      <circle cx="-5" cy="0" r="8" fill="url(#bowPink)" stroke="#1f0213" stroke-width="1.5"/>
+      <!-- Subtle Dynamic White Highlight Reflection -->
+      <circle cx="-7" cy="-2" r="2.5" fill="#ffffff" opacity="0.4"/>
+    </g>
+
+  </g>
+</svg>

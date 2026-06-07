@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" height="100%">
+  <defs>
+    <!-- Deep Glossy Onyx Black Gradient -->
+    <linearGradient id="glossyBlack" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a2a2e"/>
+      <stop offset="30%" stop-color="#141416"/>
+      <stop offset="100%" stop-color="#050506"/>
+    </linearGradient>
+
+    <!-- Clear Lens Subtle Sheen Reflection -->
+    <linearGradient id="lensSheen" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.2"/>
+      <stop offset="25%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="85%" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.15"/>
+    </linearGradient>
+
+    <!-- 3D Edge Specular Highlight Rim -->
+    <linearGradient id="edgeHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/>
+      <stop offset="50%" stop-color="#ffffff" stop-opacity="0.1"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.3"/>
+    </linearGradient>
+  </defs>
+
+  <!-- BACKGROUND RECT (Optional / Transparent for placement) -->
+  <rect width="100%" height="100%" fill="none"/>
+
+  <!-- MAIN FRAME COMPONENT GROUP -->
+  <g transform="translate(0, 20)">
+    
+    <!-- SOLID BLACK ARMS (TEMPLES) EXTENDING BACKWARDS -->
+    <path d="M 115 130 C 85 110, 50 100, 25 95 C 20 100, 22 108, 28 112 C 50 120, 80 135, 110 152 Z" fill="#141416"/>
+    <path d="M 685 130 C 715 110, 750 100, 775 95 C 780 100, 778 108, 772 112 C 750 120, 720 135, 690 152 Z" fill="#141416"/>
+
+    <!-- UNIFIED CHUNKY CAT-EYE CHASSIS -->
+    <!-- Meticulously tuned to maintain strict structural eyewear geometry and scale balance -->
+    <path d="
+      M 400,165 
+      C 378,165 362,152 342,148
+      C 275,134 200,110 115,82
+      C 100,77 92,92 102,108
+      C 118,135 135,182 145,215
+      C 162,268 215,298 270,298
+      C 328,298 368,255 380,215
+      C 386,195 392,185 400,185
+      C 408,185 414,195 420,215
+      C 432,255 472,298 530,298
+      C 585,298 638,268 655,215
+      C 665,182 682,135 698,108
+      C 708,92 700,77 685,82
+      C 600,110 525,134 458,148
+      C 438,152 422,165 400,165 Z" 
+      fill="url(#glossyBlack)" 
+      stroke="#000000" 
+      stroke-width="2" 
+      stroke-linejoin="round"
+    />
+
+    <!-- UPPER EDGE SPECULAR HIGHLIGHT (Gives the acetate its dramatic runway shine) -->
+    <path d="
+      M 112,87 
+      C 192,114 270,138 340,151 
+      C 365,155 378,168 400,168 
+      C 422,168 435,155 460,151 
+      C 530,138 608,114 688,87" 
+      fill="none" stroke="url(#edgeHighlight)" stroke-width="2.5" opacity="0.45" stroke-linecap="round"
+    />
+
+    <!-- LEFT PRESCRIPTION/DEMO EYE APERTURE -->
+    <g id="leftEyeAperture">
+      <!-- Clear Optical Lens Path -->
+      <path d="
+        M 154,122 
+        C 215,142 278,162 334,165
+        C 348,188 342,238 322,258
+        C 292,282, 218,282, 184,258
+        C 164,235, 158,168 154,122 Z" 
+        fill="#ffffff" fill-opacity="0.06"
+      />
+      <!-- Dynamic Lighting Reflection Layer -->
+      <path d="M 154,122 C 215,142 278,162 334,165 C 348,188 342,238 322,258 C 292,282, 218,282, 184,258 C 164,235, 158,168 154,122 Z" fill="url(#lensSheen)"/>
+      <!-- Inner Beveled Inner Frame Rim -->
+      <path d="M 154,122 C 215,142 278,162 334,165 C 348,188 342,238 322,258 C 292,282, 218,282, 184,258 C 164,235, 158,168 154,122 Z" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.15"/>
+    </g>
+
+    <!-- RIGHT PRESCRIPTION/DEMO EYE APERTURE -->
+    <g id="rightEyeAperture">
+      <!-- Clear Optical Lens Path -->
+      <path d="
+        M 646,122 
+        C 585,142 522,162 466,165
+        C 452,188 458,238 478,258
+        C 508,282, 582,282, 616,258
+        C 636,235, 642,168 646,122 Z" 
+        fill="#ffffff" fill-opacity="0.06"
+      />
+      <!-- Dynamic Lighting Reflection Layer -->
+      <path d="M 646,122 C 585,142 522,162 466,165 C 452,188 458,238 478,258 C 508,282, 582,282, 616,258 C 636,235, 642,168 646,122 Z" fill="url(#lensSheen)"/>
+      <!-- Inner Beveled Inner Frame Rim -->
+      <path d="M 646,122 C 585,142 522,162 466,165 C 452,188 458,238 478,258 C 508,282, 582,282, 616,258 C 636,235, 642,168 646,122 Z" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.15"/>
+    </g>
+
+    <!-- POLISHED ACETATE NOSE RIDGE SHADING DETAILS -->
+    <path d="M 358,185 C 362,198 368,208 374,212" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.2" stroke-linecap="round"/>
+    <path d="M 442,185 C 438,198 432,208 426,212" fill="none" stroke="#ffffff" stroke-width="1" opacity="0.2" stroke-linecap="round"/>
+  </g>
+</svg>

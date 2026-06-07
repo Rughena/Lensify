@@ -1,0 +1,115 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="100%" height="100%">
+  <defs>
+    <!-- Rich Glossy Black Acetate Gradient -->
+    <linearGradient id="wayfarerBlack" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2a2b2f"/>
+      <stop offset="50%" stop-color="#18191b"/>
+      <stop offset="100%" stop-color="#0b0c0e"/>
+    </linearGradient>
+
+    <!-- Deep Midnight Lens Tint -->
+    <linearGradient id="lensTint" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#202226"/>
+      <stop offset="100%" stop-color="#0f1012"/>
+    </linearGradient>
+
+    <!-- Sleek Silver/Chrome Rivet Gradient -->
+    <linearGradient id="chromeRivet" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#d1d5db"/>
+      <stop offset="100%" stop-color="#70747c"/>
+    </linearGradient>
+
+    <!-- Soft Studio Lens Flare -->
+    <linearGradient id="lensFlare" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.25"/>
+      <stop offset="40%" stop-color="#ffffff" stop-opacity="0.05"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- BACKGROUND RECT (Transparent) -->
+  <rect width="100%" height="100%" fill="none"/>
+
+  <!-- MAIN WAYFARER GROUP -->
+  <g transform="translate(0, 15)">
+    
+    <!-- THICK BLACK ACETATE TEMPLES (EXTENDING BACKWARD WITH LOGO) -->
+    <!-- Right Temple (Visible Profile on the Right Side) -->
+    <g id="rightTempleProfile">
+      <path d="M 660,132 L 755,160 C 770,165 775,175 775,190 L 773,245 C 773,252 766,252 763,245 L 750,205 C 745,195 730,185 710,180 L 660,168 Z" fill="#141517" stroke="#0b0c0e" stroke-width="1"/>
+      <!-- Laser Engraved Branding Text -->
+      <text x="688" y="158" font-family="Impact, Arial Black, sans-serif" font-size="15" fill="#5a5d64" letter-spacing="1" transform="rotate(13, 688, 158)">OLDSCHOOL</text>
+    </g>
+    <!-- Left Temple (Subtle Inner Background Hint) -->
+    <path d="M 140,135 L 50,158 C 40,160 38,170 42,180 L 52,205 C 55,212 60,210 58,202 L 52,180 C 52,172 70,162 95,158 L 140,152 Z" fill="#0b0c0e" opacity="0.6"/>
+
+    <!-- UNIFIED WAYFARER FRONT CHASSIS -->
+    <!-- Formed seamlessly with signature structural horn-rimmed wing expansions -->
+    <path d="
+      M 400,162 
+      C 375,162 352,142 322,136
+      C 275,126 155,126 112,136
+      C 90,141 82,152 82,168
+      L 90,230
+      C 95,268 130,295 192,295
+      C 248,295 285,265 304,235
+      C 312,220 320,206 332,206
+      H 368
+      C 380,206 388,220 396,235
+      C 415,265 452,295 508,295
+      C 570,295 605,268 610,230
+      L 618,168
+      C 618,152 610,141 588,136
+      C 545,126 425,126 418,136
+      C 388,142 365,162 400,162 Z" 
+      fill="url(#wayfarerBlack)" 
+      stroke="#050506" 
+      stroke-width="1.5"
+    />
+
+    <!-- ICONIC SILVER OVAL RIVETS (CORNER ANCHORS) -->
+    <ellipse cx="100" cy="150" rx="9" ry="4" transform="rotate(-8, 100, 150)" fill="url(#chromeRivet)" stroke="#4b4d52" stroke-width="0.5"/>
+    <ellipse cx="600" cy="150" rx="9" ry="4" transform="rotate(8, 600, 150)" fill="url(#chromeRivet)" stroke="#4b4d52" stroke-width="0.5"/>
+
+    <!-- 3D BROW LINE HIGHLIGHTS -->
+    <path d="M 115,138 C 170,131 265,131 310,142" fill="none" stroke="#5a5d64" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+    <path d="M 585,138 C 530,131 435,131 390,142" fill="none" stroke="#5a5d64" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+
+    <!-- LEFT WAYFARER LENS -->
+    <g id="leftLens">
+      <path d="
+        M 116,155 
+        C 170,150 255,150 290,158
+        C 292,185 285,225 272,245
+        C 255,272 215,282 188,282
+        C 140,282 120,260 116,225 Z" 
+        fill="url(#lensTint)"
+      />
+      <!-- Gradient Realism Reflection -->
+      <path d="M 116,155 C 170,150 255,150 290,158 C 292,185 285,225 272,245 C 255,272 215,282 188,282 C 140,282 120,260 116,225 Z" fill="url(#lensFlare)"/>
+      <!-- Crisp Studio Softbox Light Stripe -->
+      <path d="M 125,160 Q 210,210 282,215" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.15" stroke-linecap="round"/>
+    </g>
+
+    <!-- RIGHT WAYFARER LENS -->
+    <g id="rightLens">
+      <path d="
+        M 584,155 
+        C 530,150 445,150 410,158
+        C 408,185 415,225 428,245
+        C 445,272 485,282 512,282
+        C 560,282 580,260 584,225 Z" 
+        fill="url(#lensTint)"
+      />
+      <!-- Gradient Realism Reflection -->
+      <path d="M 584,155 C 530,150 445,150 410,158 C 408,185 415,225 428,245 C 445,272 485,282 512,282 C 560,282 580,260 584,225 Z" fill="url(#lensFlare)"/>
+      <!-- Crisp Studio Softbox Light Stripe -->
+      <path d="M 575,160 Q 490,210 418,215" fill="none" stroke="#ffffff" stroke-width="4" opacity="0.15" stroke-linecap="round"/>
+    </g>
+
+    <!-- INTEGRATED COMFORT NOSE CRADLES -->
+    <path d="M 306,220 C 302,232 295,242 288,248" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.15" stroke-linecap="round"/>
+    <path d="M 494,220 C 498,232 505,242 512,248" fill="none" stroke="#ffffff" stroke-width="1.5" opacity="0.15" stroke-linecap="round"/>
+  </g>
+</svg>
