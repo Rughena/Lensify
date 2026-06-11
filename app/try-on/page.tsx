@@ -11,6 +11,7 @@ export default function TryOnPage() {
   const streamRef = useRef<MediaStream | null>(null);
   const [cameraActive, setCameraActive] = useState(false);
   const [selectedFrames, setSelectedFrames] = useState<string>('/assets/frames/aviators.svg');
+  const frameImageRef = useRef<HTMLImageElement | null>(null);
 
   const frameModels = [
     { id: 'aviators', name: 'Black Aviators', color: '#000000', price: 189.99, overlay: '/assets/frames/aviators.svg', thumb: '/assets/frames/aviators.svg' },
@@ -43,7 +44,13 @@ export default function TryOnPage() {
     { id: 'clear', name: 'Clear Frames', color: '#E6E6E6', price: 129.99, overlay: '/assets/frames/clear.svg', thumb: '/assets/frames/clear.svg' },
     { id: 'tortoise', name: 'Tortoise Shell', color: '#7A4A2D', price: 209.99, overlay: '/assets/frames/tortoise.svg', thumb: '/assets/frames/tortoise.svg' },
   ];
-
+  useEffect(() => {
+  const img = new Image();
+  img.src = selectedFrames;
+  img.onload = () => {
+    frameImageRef.current = img;
+  };
+}, [selectedFrames]);
   useEffect(() => {
     const startCameraAndFaceMesh = async () => {
       try {
@@ -128,15 +135,12 @@ export default function TryOnPage() {
               const overlayHeight = overlayWidth * 0.45;
 
               // if selectedFrames is an overlay path, draw the image
-              if (selectedFrames.startsWith('/') || selectedFrames.includes('.svg')) {
-                const img = new Image();
-                img.src = selectedFrames;
-                img.onload = () => {
-                  ctx.save();
-                  ctx.translate(centerX, centerY - overlayHeight * 0.12);
-                  ctx.drawImage(img, -overlayWidth / 2, -overlayHeight / 2, overlayWidth, overlayHeight);
-                  ctx.restore();
-                };
+              if (frameImageRef.current) {
+                ctx.save();
+                ctx.translate(centerX, centerY - overlayHeight * 0.12);
+                ctx.drawImage(frameImageRef.current, -overlayWidth / 2, -overlayHeight / 2, overlayWidth, overlayHeight);
+                ctx.restore();
+}
               } else {
                 // fallback: colored ellipse overlay
                 ctx.strokeStyle = selectedFrames;
