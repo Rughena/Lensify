@@ -9,16 +9,16 @@ export default function TryOnPage() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  const frameImageRef = useRef<HTMLImageElement | null>(null);
   const [cameraActive, setCameraActive] = useState(false);
   const [selectedFrames, setSelectedFrames] = useState<string>('/assets/frames/aviators.svg');
-  const frameImageRef = useRef<HTMLImageElement | null>(null);
 
   const frameModels = [
     { id: 'aviators', name: 'Black Aviators', color: '#000000', price: 189.99, overlay: '/assets/frames/aviators.svg', thumb: '/assets/frames/aviators.svg' },
     { id: 'blue-oight-oval', name: 'Blue Light Oval', color: '#000000', price: 6800.99, overlay: '/assets/frames/blue-oight-oval.svg', thumb: '/assets/frames/blue-oight-oval.svg' },
     { id: 'minimalist-square', name: 'Lensify Minimalist Square', color: '#d1a961', price: 6750.99, overlay: '/assets/frames/minimalist-square.svg', thumb: '/assets/frames/minimalist-square.svg' },
     { id: 'sage-green', name: 'Sage Green', color: '#12827a', price: 5460.99, overlay: '/assets/frames/sage-green.svg', thumb: '/assets/frames/sage-green.svg' },
-    { id: 'lensify-classic-black', name: 'Lensify Classic Black', color: '#000000', price: 4400.99, overlay: '/assets/frames/lensify-classic-black.svg', thumb: '/assets/frames/lensify-classic-black.svg' }, // <-- Added missing comma here
+    { id: 'lensify-classic-black', name: 'Lensify Classic Black', color: '#000000', price: 4400.99, overlay: '/assets/frames/lensify-classic-black.svg', thumb: '/assets/frames/lensify-classic-black.svg' },
     { id: 'havana-square', name: 'Havana Square', color: '#dfba6b', price: 7280.99, overlay: '/assets/frames/havana-square.svg', thumb: '/assets/frames/havana-square.svg' },
     { id: 'clear-round', name: 'Clear Round', color: '#E6E6E6', price: 4100.99, overlay: '/assets/frames/clear-round.svg', thumb: '/assets/frames/clear-round.svg' },
     { id: 'round-mirrored', name: 'Round Mirrored', color: '#54e2ec', price: 6750.99, overlay: '/assets/frames/round-mirrored.svg', thumb: '/assets/frames/round-mirrored.svg' },
@@ -32,29 +32,32 @@ export default function TryOnPage() {
     { id: 'cat-eye-black', name: 'Cat Eye Black', color: '#141416', price: 5100.00, overlay: '/assets/frames/cat-eye-black.svg', thumb: '/assets/frames/cat-eye-black.svg' },
     { id: 'hexagon-brown', name: 'Hexagon Brown', color: '#6b1d2f', price: 4290.99, overlay: '/assets/frames/hexagon-brown.svg', thumb: '/assets/frames/hexagon-brown.svg' },
     { id: 'sports-rectangle', name: 'Sports Rectangle', color: '#ff1a1a', price: 7225.00, overlay: '/assets/frames/sports-rectangle.svg', thumb: '/assets/frames/sports-rectangle.svg' },
-    { id: 'wayfarer-black', name: 'Wayfarer Black', color: '#151618', price: 71225.00, overlay: '/assets/frames/wayfarer-black.svg', thumb: '/assets/frames/wayfarer-black.svg' },
+    { id: 'wayfarer-black', name: 'Wayfarer Black', color: '#151618', price: 7125.00, overlay: '/assets/frames/wayfarer-black.svg', thumb: '/assets/frames/wayfarer-black.svg' },
     { id: 'square-purple', name: 'Square Purple', color: '#a468cf', price: 7650.00, overlay: '/assets/frames/square-purple.svg', thumb: '/assets/frames/square-purple.svg' },
     { id: 'round-gunmetal', name: 'Round Gunmetal', color: '#d0d7de', price: 10120.00, overlay: '/assets/frames/round-gunmetal.svg', thumb: '/assets/frames/round-gunmetal.svg' },
     { id: 'executive-silver', name: 'Executive Silver', color: '#cbd5e1', price: 9500.00, overlay: '/assets/frames/executive-silver.svg', thumb: '/assets/frames/executive-silver.svg' },
     { id: 'aviator-classic', name: 'Aviator Classic', color: '#e2ba6e', price: 11250.00, overlay: '/assets/frames/aviator-classic.svg', thumb: '/assets/frames/aviator-classic.svg' },
-    { id: 'oval-havana', name: 'Oval Havana', color: '#ffffff', price: 165.00, overlay: '/assets/frames/oval-white.svg', thumb: '/assets/frames/oval-white.svg' },
-    { id: 'round', name: 'Gold Round', color: '#FFD700', price: 199.99, overlay: '/assets/frames/round.svg', thumb: '/assets/frames/round.svg' },
-    { id: 'cat-eye', name: 'Cat Eye', color: '#8B4513', price: 179.99, overlay: '/assets/frames/cat-eye.svg', thumb: '/assets/frames/cat-eye.svg' },
-    { id: 'square', name: 'Square', color: '#A9927D', price: 159.99, overlay: '/assets/frames/square.svg', thumb: '/assets/frames/square.svg' },
-    { id: 'clear', name: 'Clear Frames', color: '#E6E6E6', price: 129.99, overlay: '/assets/frames/clear.svg', thumb: '/assets/frames/clear.svg' },
-    { id: 'tortoise', name: 'Tortoise Shell', color: '#7A4A2D', price: 209.99, overlay: '/assets/frames/tortoise.svg', thumb: '/assets/frames/tortoise.svg' },
+    { id: 'oval-havana', name: 'Oval Havana', color: '#ffffff', price: 8100.00, overlay: '/assets/frames/oval-white.svg', thumb: '/assets/frames/oval-white.svg' },
+    { id: 'round', name: 'Gold Round', color: '#FFD700', price: 9500.00, overlay: '/assets/frames/round.svg', thumb: '/assets/frames/round.svg' },
+    { id: 'cat-eye', name: 'Cat Eye', color: '#8B4513', price: 7200.00, overlay: '/assets/frames/cat-eye.svg', thumb: '/assets/frames/cat-eye.svg' },
+    { id: 'square', name: 'Square', color: '#A9927D', price: 6800.00, overlay: '/assets/frames/square.svg', thumb: '/assets/frames/square.svg' },
+    { id: 'clear', name: 'Clear Frames', color: '#E6E6E6', price: 5500.00, overlay: '/assets/frames/clear.svg', thumb: '/assets/frames/clear.svg' },
+    { id: 'tortoise', name: 'Tortoise Shell', color: '#7A4A2D', price: 8200.00, overlay: '/assets/frames/tortoise.svg', thumb: '/assets/frames/tortoise.svg' },
   ];
+
+  // Image pehle se load karo jab bhi selectedFrames change ho
   useEffect(() => {
-  const img = new Image();
-  img.src = selectedFrames;
-  img.onload = () => {
-    frameImageRef.current = img;
-  };
-}, [selectedFrames]);
+    frameImageRef.current = null; // purani image hatao
+    const img = new Image();
+    img.src = selectedFrames;
+    img.onload = () => {
+      frameImageRef.current = img;
+    };
+  }, [selectedFrames]);
+
   useEffect(() => {
     const startCameraAndFaceMesh = async () => {
       try {
-        // start media stream
         const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
         streamRef.current = stream;
         if (videoRef.current) {
@@ -62,7 +65,6 @@ export default function TryOnPage() {
           await videoRef.current.play();
         }
 
-        // Dynamically load MediaPipe FaceMesh and Camera utils from CDN if available
         if (!(window as any).FaceMesh || !(window as any).Camera) {
           await Promise.all([
             new Promise<void>((resolve, reject) => {
@@ -80,17 +82,20 @@ export default function TryOnPage() {
               document.head.appendChild(s);
             }),
           ]).catch((err) => {
-            console.warn('Could not load MediaPipe from CDN, falling back to simple overlay:', err);
+            console.warn('Could not load MediaPipe from CDN:', err);
             return;
           });
         }
 
-        // If FaceMesh is available, set up detector and camera integration
         if ((window as any).FaceMesh && (window as any).Camera && videoRef.current) {
           const FaceMesh: any = (window as any).FaceMesh;
           const Camera: any = (window as any).Camera;
 
-          const faceMesh = new FaceMesh({ locateFile: (file: string) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}` });
+          const faceMesh = new FaceMesh({
+            locateFile: (file: string) =>
+              `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`,
+          });
+
           faceMesh.setOptions({
             maxNumFaces: 1,
             refineLandmarks: true,
@@ -98,7 +103,6 @@ export default function TryOnPage() {
             minTrackingConfidence: 0.5,
           });
 
-          // onResults will draw overlays using landmarks
           faceMesh.onResults((results: any) => {
             const canvas = canvasRef.current;
             const video = videoRef.current;
@@ -106,63 +110,52 @@ export default function TryOnPage() {
             const ctx = canvas.getContext('2d');
             if (!ctx) return;
 
-            // draw mirrored video
             canvas.width = video.videoWidth || canvas.width || 640;
             canvas.height = video.videoHeight || canvas.height || 480;
+
+            // ✅ Canvas clear karo pehle
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Mirrored video draw karo
             ctx.save();
             ctx.scale(-1, 1);
             ctx.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
             ctx.restore();
 
-            // draw frame overlay if landmarks exist
-            const faceLandmarks = results.multiFaceLandmarks && results.multiFaceLandmarks[0];
-            if (faceLandmarks && selectedFrames) {
-              // compute positions using a few landmark indices
-              // approximate eye centers using landmarks 33 (left), 263 (right)
+            const faceLandmarks =
+              results.multiFaceLandmarks && results.multiFaceLandmarks[0];
+
+            if (faceLandmarks) {
               const left = faceLandmarks[33];
               const right = faceLandmarks[263];
 
-              const lx = (1 - left.x) * canvas.width; // mirrored
+              const lx = (1 - left.x) * canvas.width;
               const ly = left.y * canvas.height;
               const rx = (1 - right.x) * canvas.width;
               const ry = right.y * canvas.height;
 
-              // center and scale overlay
               const centerX = (lx + rx) / 2;
               const centerY = (ly + ry) / 2;
               const eyeDist = Math.hypot(rx - lx, ry - ly);
               const overlayWidth = eyeDist * 2.6;
               const overlayHeight = overlayWidth * 0.45;
 
-              // if selectedFrames is an overlay path, draw the image
+              // ✅ Sirf frameImageRef use karo — no new Image()
               if (frameImageRef.current) {
                 ctx.save();
                 ctx.translate(centerX, centerY - overlayHeight * 0.12);
-                ctx.drawImage(frameImageRef.current, -overlayWidth / 2, -overlayHeight / 2, overlayWidth, overlayHeight);
+                ctx.drawImage(
+                  frameImageRef.current,
+                  -overlayWidth / 2,
+                  -overlayHeight / 2,
+                  overlayWidth,
+                  overlayHeight
+                );
                 ctx.restore();
-}
-              } else {
-                // fallback: colored ellipse overlay
-                ctx.strokeStyle = selectedFrames;
-                ctx.lineWidth = Math.max(2, Math.round(canvas.width / 200));
-                ctx.fillStyle = selectedFrames + '33';
-                ctx.beginPath();
-                ctx.ellipse(centerX - overlayWidth * 0.18, centerY, overlayWidth * 0.45, overlayHeight / 2, 0, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.ellipse(centerX + overlayWidth * 0.18, centerY, overlayWidth * 0.45, overlayHeight / 2, 0, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(centerX - overlayWidth * 0.05, centerY);
-                ctx.lineTo(centerX + overlayWidth * 0.05, centerY);
-                ctx.stroke();
               }
             }
           });
 
-          // Camera integration provided by MediaPipe
           const camera = new Camera(videoRef.current, {
             onFrame: async () => {
               await faceMesh.send({ image: videoRef.current });
@@ -172,7 +165,6 @@ export default function TryOnPage() {
           });
           camera.start();
 
-          // store camera so we can stop it later
           (window as any).__mp_camera = camera;
           (window as any).__mp_faceMesh = faceMesh;
         }
@@ -185,7 +177,6 @@ export default function TryOnPage() {
 
     if (cameraActive) startCameraAndFaceMesh();
 
-    // Cleanup when cameraActive toggles off
     return () => {
       if (!cameraActive) {
         try {
@@ -208,7 +199,6 @@ export default function TryOnPage() {
   return (
     <>
     <main className="min-h-screen bg-white">
-      {/* Navigation */}
       <nav className="bg-purple-600 border-b border-purple-500 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 py-3 flex justify-between items-center">
           <Link href="/" className="text-xl font-semibold text-white">
@@ -222,10 +212,12 @@ export default function TryOnPage() {
 
       <div className="max-w-6xl mx-auto px-6 py-12">
         <h1 className="text-3xl font-semibold mb-2 text-gray-900">AR Try-On</h1>
-        <p className="text-sm text-gray-600 mb-12">See how glasses look on you with augmented reality</p>
+        <p className="text-sm text-gray-600 mb-12">
+          See how glasses look on you with augmented reality
+        </p>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Canvas/Video Section */}
+          {/* Camera Section */}
           <div className="lg:col-span-2">
             <div className="bg-gray-100 overflow-hidden border border-gray-200">
               {cameraActive ? (
@@ -246,9 +238,9 @@ export default function TryOnPage() {
                 </div>
               ) : (
                 <div className="w-full aspect-video flex items-center justify-center bg-gray-100">
-                  <div className="text-center">
-                    <p className="text-gray-600 text-sm">Click "Start AR Try-On" to begin</p>
-                  </div>
+                  <p className="text-gray-600 text-sm">
+                    Click "Start AR Try-On" to begin
+                  </p>
                 </div>
               )}
             </div>
@@ -266,7 +258,7 @@ export default function TryOnPage() {
           {/* Frames Selection */}
           <div>
             <h3 className="text-lg font-semibold mb-6 text-gray-900">Choose Frames</h3>
-            <div className="space-y-3">
+            <div className="space-y-3 max-h-[600px] overflow-y-auto pr-1">
               {frameModels.map((frame) => (
                 <button
                   key={frame.id}
@@ -278,17 +270,29 @@ export default function TryOnPage() {
                   }`}
                 >
                   <div className="w-12 h-10 flex items-center justify-center">
-                    <img src={frame.thumb} alt={frame.name} className="w-full h-auto" />
+                    <img
+                      src={frame.thumb}
+                      alt={frame.name}
+                      className="w-full h-auto"
+                    />
                   </div>
                   <div className="flex-1">
                     <p className="font-semibold text-gray-900">{frame.name}</p>
-                    <p className="text-sm text-gray-600">${frame.price.toFixed(2)}</p>
+                    <p className="text-sm text-gray-600">
+                      Rs {frame.price.toLocaleString()}
+                    </p>
                   </div>
                 </button>
               ))}
             </div>
 
-            <Link href="/shop" className="block mt-8" onClick={() => localStorage.setItem('prefSelectedFrame', selectedFrames)}>
+            <Link
+              href="/shop"
+              className="block mt-8"
+              onClick={() =>
+                localStorage.setItem('prefSelectedFrame', selectedFrames)
+              }
+            >
               <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 rounded-sm">
                 View All Frames
               </Button>
