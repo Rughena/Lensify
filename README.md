@@ -1,187 +1,212 @@
-# Lensify - AI-Powered E-commerce for Glasses & Lenses
+# Lensify — AI-Powered Eyewear E-Commerce
 
-A modern, full-stack e-commerce platform with virtual try-on, AI recommendations, and intelligent chatbot assistance built with Next.js, Node.js, MongoDB, and TensorFlow.js.
+> Final Year Project | COMSATS University Islamabad, Sahiwal Campus | BS Computer Science | 2026
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-blue)](https://lensify-psi.vercel.app)
+
+---
+
+## About
+
+Lensify is a full-stack AI-powered eyewear e-commerce platform built for the Pakistani market. It features real-time Virtual Try-On using MediaPipe face detection, an AI chatbot powered by Llama 3.2, face shape based frame recommendations, and a complete e-commerce flow with Cash on Delivery.
+
+---
+
+## Live Demo
+
+🌐 **[https://lensify-psi.vercel.app](https://lensify-psi.vercel.app)**
+
+**Test Accounts:**
+| Role | Email | Password |
+|------|-------|----------|
+| Customer | test@gmail.com | test123 |
+| Admin | (set role to admin in MongoDB) | — |
+
+---
 
 ## Features
 
-### Core Features
-- **Virtual Try-On (VTO)**: Try glasses using webcam or photo upload with real-time overlay
-- **AI Chatbot Assistant**: Intelligent customer support with product recommendations
-- **Product Catalog**: Browse and filter glasses by shape, color, brand, and price
-- **Face Recommendation Engine**: AI-powered frame suggestions based on face shape
-- **Shopping Cart & Checkout**: Secure checkout with test payment simulation
-- **Order Tracking**: Real-time order status updates
-- **Admin Dashboard**: Manage products, orders, and view analytics
+### Customer Features
+- 🔐 Register / Login with JWT authentication
+- 👓 Virtual Try-On — real-time AR glasses overlay using MediaPipe Face Mesh (468 landmarks)
+- 🤖 AI Chatbot — powered by Llama 3.2 via Ollama
+- 🎯 Face Shape Recommendations — rule-based frame suggestions
+- 🛍️ Shop with filters — category, shape, price range, sorting
+- 🛒 Cart & Checkout — Cash on Delivery
+- 📦 Order Tracking — by unique LNF order number
+- 👤 Profile management
 
-### Technical Stack
-- **Frontend**: React.js, Next.js 16, TailwindCSS, TypeScript
-- **Backend**: Node.js, Express.js, MongoDB Atlas
-- **AI/ML**: TensorFlow.js, MediaPipe for virtual try-on
-- **Authentication**: JWT-based auth with bcrypt password hashing
-- **Deployment**: Vercel, MongoDB Atlas, Render
+### Admin Features
+- 📊 Dashboard — real revenue, orders, products stats
+- 📦 Product management — add, edit, delete
+- 🧾 Order management — update status
+- 👥 Customer management
+- 👔 Manager accounts — create and manage
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Frontend | Next.js 16, TailwindCSS, TypeScript |
+| Backend | Next.js API Routes |
+| Database | MongoDB Atlas + Mongoose |
+| Authentication | JWT + bcrypt |
+| AI Chatbot | Ollama + Llama 3.2 |
+| Virtual Try-On | MediaPipe Face Mesh |
+| Deployment | Vercel + MongoDB Atlas |
+
+---
 
 ## Setup Instructions
 
 ### Prerequisites
-- Node.js 18+ installed
-- MongoDB Atlas account (or local MongoDB)
-- Git
-
-### Environment Variables
-
-Create a `.env.local` file in the project root:
-
-\`\`\`env
-# Database
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/lensify
-
-# Authentication
-JWT_SECRET=your-secret-key-here
-
-# Deployment
-NEXT_PUBLIC_API_URL=http://localhost:3000
-\`\`\`
+- Node.js 18+
+- MongoDB Atlas account
+- Ollama installed (for AI chatbot)
 
 ### Installation
 
-1. **Clone the repository**
-   \`\`\`bash
-   git clone <repository-url>
-   cd lensify
-   \`\`\`
+**1. Clone the repository**
+```bash
+git clone https://github.com/Rughena/lensify.git
+cd lensify
+```
 
-2. **Install dependencies**
-   \`\`\`bash
-   npm install
-   \`\`\`
+**2. Install dependencies**
+```bash
+npm install
+```
 
-3. **Set up environment variables**
-   - Copy the variables from the Environment Variables section above
-   - Update with your actual MongoDB URI and JWT secret
+**3. Create `.env.local` file**
+```env
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/lensify
+JWT_SECRET=your-secret-key-here
+NEXT_PUBLIC_API_URL=http://localhost:3000
+```
 
-4. **Seed the database** (Optional - adds sample products)
-   \`\`\`bash
-   curl -X POST http://localhost:3000/api/seed
-   \`\`\`
+**4. Seed the database**
+```bash
+# Run the dev server first, then visit:
+http://localhost:3000/api/seed
+```
 
-5. **Run the development server**
-   \`\`\`bash
-   npm run dev
-   \`\`\`
+**5. Start Ollama (for AI chatbot)**
+```bash
+ollama serve
+```
 
-6. **Open browser**
-   - Navigate to `http://localhost:3000`
+**6. Run the project**
+```bash
+npm run dev
+```
 
-## User Roles
-
-### Customer
-- Browse and search products
-- Use virtual try-on feature
-- Chat with AI assistant
-- Add items to cart and checkout
-- Track orders
-- View order history
-
-### Admin
-- Manage product inventory (add/edit/delete)
-- View all orders and update status
-- View sales analytics and metrics
-- Monitor inventory levels
-
-## Testing the Application
-
-### Test Accounts
-- **Admin**: Admin accounts can be created via signup (set role to 'admin' in DB)
-- **Customer**: Standard users created through signup form
-
-### Sample Data
-- Run `npm run seed` or POST to `/api/seed` to populate sample products
+**7. Open browser**
+http://localhost:3000
+---
 
 ## API Endpoints
 
 ### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - User login
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/auth/register` | Register new user |
+| POST | `/api/auth/login` | User login |
+| GET | `/api/auth/profile` | Get user profile |
+| PUT | `/api/auth/profile` | Update profile |
 
 ### Products
-- `GET /api/products` - Get all products (with filters)
-- `GET /api/products/[id]` - Get product details
-- `POST /api/products` - Create product (admin)
-- `PUT /api/products/[id]` - Update product (admin)
-- `DELETE /api/products/[id]` - Delete product (admin)
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/products` | Get all products (with filters) |
+| GET | `/api/products/[id]` | Get single product |
+| POST | `/api/products` | Add product (admin) |
+| PUT | `/api/products/[id]` | Update product (admin) |
+| DELETE | `/api/products/[id]` | Delete product (admin) |
 
 ### Orders
-- `GET /api/orders` - Get user's orders
-- `POST /api/orders` - Create new order
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/orders` | Get user orders |
+| POST | `/api/orders` | Create order |
 
 ### Chat
-- `POST /api/chat` - Send message to AI chatbot
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/api/chat` | Send message to AI chatbot |
 
-## Features in Detail
-
-### Virtual Try-On
-- **Camera Mode**: Real-time try-on using device camera
-- **Photo Mode**: Upload image and overlay frames
-- **Adjustable**: Scale and position frame overlay
-- **Export**: Download preview image
-
-### AI Chatbot
-- Answers FAQs about products, shipping, returns
-- Provides frame recommendations
-- Assists with order tracking
-- Available 24/7 via chat widget
-
-### Product Management
-- Categories: Men, Women, Kids, Sunglasses
-- Shapes: Oval, Round, Square, Rectangle, Cat-Eye
-- Filters by color, brand, price range
-- Stock management
-
-## Deployment
-
-### Deploy to Vercel
-\`\`\`bash
-npm install -g vercel
-vercel
-\`\`\`
-
-### Deploy Backend
-Use Render, Railway, or similar platforms for Node.js backend deployment.
+---
 
 ## Database Schema
 
-### User
-- email, password, firstName, lastName
-- phone, address, city, country, zipCode
-- role (customer/admin), timestamps
+### Users Collection
+email, password (bcrypt hashed), firstName, lastName
 
-### Product
-- name, description, price, discount
-- category, shape, color, brand, material
-- imageUrl, stock, rating, reviews
+phone, address, city, country, zipCode
 
-### Order
-- userId, items (cart items array)
-- totalAmount, status, shippingAddress
-- paymentMethod, prescriptionUrl, timestamps
+role: customer | admin | manager
+
+### Products Collection
+name, description, price (PKR), discount
+
+category: men | women | unisex | contacts
+
+shape: oval | round | square | rectangle | cat-eye | hexagon
+
+color, brand, material, imageUrl, stock, rating, reviews
+
+### Orders Collection
+userId, orderNumber (LNF-XXXXXX-XXX format)
+
+items[], totalAmount, status
+
+shippingAddress, paymentMethod
+
+---
+
+## Project Structure
+lensify/
+
+├── app/
+
+│   ├── api/          # Backend API routes
+
+│   ├── admin/        # Admin dashboard pages
+
+│   ├── shop/         # Shop page
+
+│   ├── try-on/       # Virtual Try-On page
+
+│   ├── checkout/     # Checkout page
+
+│   ├── payment/      # Payment page
+
+│   └── dashboard/    # Customer dashboard
+
+├── components/       # Reusable UI components
+
+├── models/           # MongoDB Mongoose models
+
+├── lib/              # Utility functions
+
+└── public/           # Static assets & product images
+
+---
+
+## Documentation
+
+📄 Full project report available in [`/docs/Lensify_FYP_Report.pdf`](./docs/Lensify_FYP_Report.pdf)
+
+---
+
+## Developer
+
+**Rughena** — BS Computer Science  
+COMSATS University Islamabad, Sahiwal Campus  
+GitHub: [@Rughena](https://github.com/Rughena)
+
+---
 
 ## License
 MIT
-
-## Support
-For issues or feature requests, please create an issue in the repository.
-\`\`\`
-
-```env.example file=".env.example"
-# MongoDB Database Connection
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/lensify
-
-# JWT Secret Key for Authentication
-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
-
-# API Configuration
-NEXT_PUBLIC_API_URL=http://localhost:3000
-
-# Optional: Chatbot API Keys (for advanced integrations)
-# GROQ_API_KEY=your-groq-api-key
-# DIALOGFLOW_PROJECT_ID=your-dialogflow-project-id
