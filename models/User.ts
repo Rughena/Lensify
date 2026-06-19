@@ -3,11 +3,6 @@ import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema(
   {
-    role: {
-  type: String,
-  enum: ['customer', 'manager', 'admin'],
-  default: 'customer',
-},
     email: {
       type: String,
       required: true,
@@ -34,18 +29,15 @@ const userSchema = new mongoose.Schema(
     zipCode: String,
     role: {
       type: String,
-      enum: ['customer', 'admin'],
+      enum: ['customer', 'manager', 'admin'],
       default: 'customer',
     },
   },
   { timestamps: true }
 );
 
-userSchema.pre('save', async function () {
-  if (!this.isModified('password')) return;
-  const salt = await bcrypt.genSalt(10);
-  this.password = await bcrypt.hash(this.password, salt);
-});
+// ✅ pre('save') hook HATA diya — register route khud hash karta hai
+// Sirf matchPassword method rakha
 
 userSchema.methods.matchPassword = async function (enteredPassword: string) {
   return await bcrypt.compare(enteredPassword, this.password);
